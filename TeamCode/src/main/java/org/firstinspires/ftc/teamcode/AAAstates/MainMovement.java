@@ -47,8 +47,8 @@ public class MainMovement extends LinearOpMode {
     boolean enableTransfer = false;
 
     // hang stuff
-    boolean hangMotorsOn = false;
-    private int hangDirection = -1;
+    //boolean hangMotorsOn = false;
+    //private int hangDirection = -1;
 
 
 
@@ -57,7 +57,7 @@ public class MainMovement extends LinearOpMode {
         // vertical slide
     private DcMotor vLinearSlideRight, vLinearSlideLeft; // motor to control vertical linear slide
 
-    private DcMotor hangMotorLeft, hangMotorRight;
+    //private DcMotor hangMotorLeft, hangMotorRight;
     private Servo vArmServo;  // v is slang for vertical btw
     boolean vSlideArmOut = false; // mounted onto the linear slide
     private final float linearSlideSpeed = 0.75f; // if this becomes 1 it will make the speed faster O.-
@@ -85,8 +85,8 @@ public class MainMovement extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront"); //  EH1
         vLinearSlideLeft = hardwareMap.get(DcMotor.class, "vertical_slide_left"); // CH2
         vLinearSlideRight = hardwareMap.get(DcMotor.class, "vertical_slide_right"); //  EH2
-        hangMotorLeft = hardwareMap.get(DcMotor.class, "hang_motor_left"); // CH3
-        hangMotorRight = hardwareMap.get(DcMotor.class, "hang_motor_right"); // EH3
+        //hangMotorLeft = hardwareMap.get(DcMotor.class, "hang_motor_left"); // CH3
+        //hangMotorRight = hardwareMap.get(DcMotor.class, "hang_motor_right"); // EH3
 
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -98,7 +98,7 @@ public class MainMovement extends LinearOpMode {
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         vLinearSlideLeft.setDirection(DcMotor.Direction.REVERSE);
-        hangMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        //hangMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
 
         sweeper = hardwareMap.get(Servo.class, "sweeper"); //  CH0

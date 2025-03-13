@@ -73,6 +73,7 @@ public class PinpointDrive extends MecanumDrive {
          Note: Pinpoint IMU is always used for base localization
          */
         public boolean usePinpointIMUForTuning = true;
+
     }
 
     public static Params PARAMS = new Params();
