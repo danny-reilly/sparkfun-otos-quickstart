@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.SparkFunOTOSDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
 import org.opencv.core.Mat;
 
+@Autonomous
 public final class SplineTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,7 +38,7 @@ public final class SplineTest extends LinearOpMode {
                 drive.actionBuilder(beginPose)
 
 
-                        //.setTangent(Math.toRadians(330))
+                        .setTangent(Math.toRadians(330))
                         .lineToY(-52)
 
                         .setReversed(true)
@@ -59,6 +61,11 @@ public final class SplineTest extends LinearOpMode {
 
                         .setReversed(true)
                         .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+
+                        .setReversed(false)
+                        .splineTo(new Vector2d(-46, -10), Math.toRadians(180))
+                        .strafeToSplineHeading(new Vector2d(-24, -12), Math.toRadians(180))
 
 
                         .build());
