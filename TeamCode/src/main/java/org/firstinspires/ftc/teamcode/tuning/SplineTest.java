@@ -10,64 +10,58 @@ import org.firstinspires.ftc.teamcode.OctoQuadDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.SparkFunOTOSDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
+import org.opencv.core.Mat;
 
 public final class SplineTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        Pose2d beginPose = new Pose2d(0, 0, 0);
-        if (TuningOpModes.DRIVE_CLASS.equals(OctoQuadDrive.class)) {
-            OctoQuadDrive drive = new OctoQuadDrive(hardwareMap, beginPose);
 
-            waitForStart();
+        Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
 
-            Actions.runBlocking(
-                    drive.actionBuilder(beginPose)
-                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                            .splineTo(new Vector2d(0, 60), Math.PI)
-                            .build());
+        //RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                //.setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
 
-        } else if (TuningOpModes.DRIVE_CLASS.equals(PinpointDrive.class)) {
-            PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
+                //.build();
 
-            waitForStart();
+        //myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-33, -60, Math.toRadians(0)))
 
-            Actions.runBlocking(
-                    drive.actionBuilder(beginPose)
-                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                            .splineTo(new Vector2d(0, 60), Math.PI)
-                            .build());
-        } else if (TuningOpModes.DRIVE_CLASS.equals(SparkFunOTOSDrive.class)) {
-            SparkFunOTOSDrive drive = new SparkFunOTOSDrive(hardwareMap, beginPose);
 
-            waitForStart();
+        waitForStart();
 
-            Actions.runBlocking(
-                    drive.actionBuilder(beginPose)
-                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                            .splineTo(new Vector2d(0, 60), Math.PI)
-                            .build());
-        } else if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
-            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
-            waitForStart();
 
-            Actions.runBlocking(
+                PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
+        Actions.runBlocking(
                 drive.actionBuilder(beginPose)
-                        .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                        .splineTo(new Vector2d(0, 60), Math.PI)
-                        .build());
-        } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
-            TankDrive drive = new TankDrive(hardwareMap, beginPose);
 
-            waitForStart();
 
-            Actions.runBlocking(
-                    drive.actionBuilder(beginPose)
-                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                            .splineTo(new Vector2d(0, 60), Math.PI)
-                            .build());
-        } else {
-            throw new RuntimeException();
-        }
+                //.setTangent(Math.toRadians(330))
+                .lineToY(-52)
+
+                .setReversed(true)
+                .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+                .setReversed(false)
+                .splineTo(new Vector2d(-48, -38), Math.toRadians(90))
+
+                .setReversed(true)
+                .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+                .setReversed(false)
+                .splineTo(new Vector2d(-58, -38), Math.toRadians(90))
+
+                .setReversed(true)
+                .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+                .setReversed(false)
+                .splineTo(new Vector2d(-52, -26), Math.toRadians(180))
+
+                .setReversed(true)
+                .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+
+                .build());
     }
-}
+    }
+
