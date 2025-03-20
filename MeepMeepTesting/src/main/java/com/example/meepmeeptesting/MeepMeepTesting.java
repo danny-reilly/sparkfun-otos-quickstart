@@ -31,4 +31,12 @@ public class MeepMeepTesting {
                 .addEntity(myBot)
                 .start();
     }
+
+    public float DegToRad(float degrees) {
+        float radians;
+
+        radians = degrees * ((float) Math.PI / 180);
+
+        return radians;
+    }
 }
