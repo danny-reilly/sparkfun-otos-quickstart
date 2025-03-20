@@ -30,28 +30,46 @@ public class MeepMeepTesting {
                 .setReversed(true)
                 .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
 
+                .waitSeconds(0.5)
+
                 .setReversed(false)
                 .splineTo(new Vector2d(-48, -38), Math.toRadians(90))
 
+                .waitSeconds(0.5)
+
                 .setReversed(true)
                 .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+                .waitSeconds(0.5)
+
 
                 .setReversed(false)
                 .splineTo(new Vector2d(-58, -38), Math.toRadians(90))
 
+                .waitSeconds(0.5)
+
+
                 .setReversed(true)
                 .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+
+                .waitSeconds(0.5)
+
 
                 .setReversed(false)
                 .splineTo(new Vector2d(-52, -26), Math.toRadians(180))
 
+                .waitSeconds(0.5)
+
+
                 .setReversed(true)
                 .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
 
+                .waitSeconds(0.5)
+
 
                 .setReversed(false)
-                .splineTo(new Vector2d(-46, -10), Math.toRadians(180))
-                .strafeToSplineHeading(new Vector2d(-24, -12), Math.toRadians(180))
+                .splineTo(new Vector2d(-55, -10), Math.toRadians(180))
+                .strafeToSplineHeading(new Vector2d(-24, -10), Math.toRadians(180))
 
                 .build());
 
