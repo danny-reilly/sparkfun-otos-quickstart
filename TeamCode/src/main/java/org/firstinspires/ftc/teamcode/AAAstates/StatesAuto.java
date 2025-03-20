@@ -29,7 +29,7 @@ public class StatesAuto extends LinearOpMode {
     protected float hArmPos = 0.9f;
 
     protected DcMotorEx leftBack, rightBack, leftFront, rightFront; //Initializes direct current main wheel motors for the driving function of our robot, gary.
-    protected DcMotor vLinearSlideLeft, vLinearSlideRight, hangMotorLeft, hangMotorRight;
+    protected DcMotor vLinearSlideLeft, vLinearSlideRight;
     //private Servo hLinearSlideRight;
     protected Servo vArmServo, hArmOpen, hLinearSlideLeft, hLinearSlideRight, hClawServo;
 
@@ -47,8 +47,7 @@ public class StatesAuto extends LinearOpMode {
         rightFront  = hardwareMap.get(DcMotorEx.class, "rightFront");
         vLinearSlideLeft = hardwareMap.get(DcMotor.class, "vertical_slide_left"); //
         vLinearSlideRight = hardwareMap.get(DcMotor.class, "vertical_slide_right"); //  EH2
-        hangMotorLeft = hardwareMap.get(DcMotor.class, "hang_motor_left"); // CH3
-        hangMotorRight = hardwareMap.get(DcMotor.class, "hang_motor_right"); // EH3
+
 
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         leftFront.setDirection(DcMotor.Direction.REVERSE);
