@@ -17,6 +17,23 @@ import java.util.Vector;
 
 @Autonomous
 public final class SplineTest extends LinearOpMode {
+
+    public class claw {
+        private Servo clawServo;
+        public claw(HardwareMap hardwareMap) {
+            clawSero = hardwareMap.get(Servo.class, "horizontal_claw");
+        }
+
+        public Action openClaw() {
+            clawServo.setPosition(0.377);
+        }
+
+        public Action closeClaw() {
+            clawServo.setPosition(0.75);
+        }
+    }
+
+
     @Override
     public void runOpMode() throws InterruptedException {
 
