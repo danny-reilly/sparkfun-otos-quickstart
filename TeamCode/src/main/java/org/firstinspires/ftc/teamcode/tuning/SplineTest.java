@@ -13,11 +13,14 @@ import org.firstinspires.ftc.teamcode.SparkFunOTOSDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
 import org.opencv.core.Mat;
 
+import java.util.Vector;
+
 @Autonomous
 public final class SplineTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        Vector2d bucketPose = new Vector2d(-59, -51);
         Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
 
         //RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
@@ -38,9 +41,9 @@ public final class SplineTest extends LinearOpMode {
                 drive.actionBuilder(beginPose)
 
                         .setTangent(90)
-                        .lineToY(-50)
+                        .lineToY(-30)
                         .setReversed(true)
-                        .strafeToSplineHeading(new Vector2d(-55, -55), Math.toRadians(45))
+                        .strafeToSplineHeading(bucketPose, Math.toRadians(45))
 
                         .waitSeconds(0.5)
 
@@ -50,7 +53,7 @@ public final class SplineTest extends LinearOpMode {
                         .waitSeconds(0.5)
 
                         .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+                        .splineTo(bucketPose, Math.toRadians(225))
 
                         .waitSeconds(0.5)
 
@@ -62,7 +65,7 @@ public final class SplineTest extends LinearOpMode {
 
 
                         .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+                        .splineTo(bucketPose, Math.toRadians(225))
 
                         .waitSeconds(0.5)
 
@@ -74,7 +77,7 @@ public final class SplineTest extends LinearOpMode {
 
 
                         .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+                        .splineTo(bucketPose, Math.toRadians(225))
 
 
                         .setReversed(false)
