@@ -17,7 +17,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+ * /
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
@@ -50,7 +50,7 @@ import java.util.Stack;
  * Use the Program Settings To FLASH option to make any changes permanent.
  *
  * See the sensor's product page: https://www.tindie.com/products/digitalchickenlabs/octoquad-8ch-quadrature-pulse-width-decoder/
- */
+ * /
 @TeleOp(name = "OctoQuad Configuration Tool", group="OctoQuad")
 @Disabled
 public class UtilityOctoQuadConfigMenu extends LinearOpMode
@@ -291,7 +291,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
      * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
      * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
      * SOFTWARE.
-     */
+     * /
 
     public static class TelemetryMenu
     {
@@ -314,7 +314,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
          * TelemetryMenu constructor
          * @param telemetry pass in 'telemetry' from your OpMode
          * @param root the root menu element
-         */
+         * /
         public TelemetryMenu(Telemetry telemetry, MenuElement root)
         {
             this.root = root;
@@ -329,7 +329,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
          * Call this from inside your loop to put the current menu state into
          * telemetry, and process gamepad inputs for navigating the menu
          * @param gamepad the gamepad you want to use to navigate the menu
-         */
+         * /
         public void loop(Gamepad gamepad)
         {
             // Capture current state of the gamepad buttons we care about;
@@ -506,7 +506,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
              * Create a new MenuElement; may either be the root menu, or a submenu (set isRoot accordingly)
              * @param name the name for this menu
              * @param isRoot whether this is a root menu, or a submenu
-             */
+             * /
             public MenuElement(String name, boolean isRoot)
             {
                 this.name = name;
@@ -521,7 +521,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             /**
              * Add a child element to this menu (may either be an Option or another menu)
              * @param child the child element to add
-             */
+             * /
             public void addChild(Element child)
             {
                 child.setParent(this);
@@ -531,7 +531,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             /**
              * Add multiple child elements to this menu (may either be option, or another menu)
              * @param children the children to add
-             */
+             * /
             public void addChildren(Element[] children)
             {
                 for (Element e : children)
@@ -557,17 +557,17 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         {
             /**
              * Override this to get notified when the element is clicked
-             */
+             * /
             void onClick() {}
 
             /**
              * Override this to get notified when the element gets a "left edit" input
-             */
+             * /
             protected void onLeftInput() {}
 
             /**
              * Override this to get notified when the element gets a "right edit" input
-             */
+             * /
             protected void onRightInput() {}
         }
 
@@ -748,7 +748,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         /**
          *
-         */
+         * /
         public static class StaticItem extends OptionElement
         {
             private String name;
@@ -810,3 +810,4 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         }
     }
 }
+*/

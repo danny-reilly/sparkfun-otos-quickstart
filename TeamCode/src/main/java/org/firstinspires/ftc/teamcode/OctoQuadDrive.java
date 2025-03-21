@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 
 
@@ -20,18 +20,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Experimental extension of MecanumDrive that uses the OctoQuad sensor for localization.
  * <p>
  * Released under the BSD 3-Clause Clear License by j5155 from 12087 Capital City Dynamics
- */
+ * /
 @Config
 public class OctoQuadDrive extends AbsoluteLocalizerDrive {
     public static class Params {
         /*
         Set this to the name that your Octoquad is configured as in your hardware config.
-         */
+         * /
         public String octoquadDeviceName = "octoquad";
 
         /*
         Set these to the numbers of the ports that the X and Y odometry are plugged into on the OctoQuad.
-         */
+         * /
         public int odometryPortX = 1;
 
         public int odometryPortY = 2;
@@ -39,7 +39,7 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
         /*
         The OctoQuad IMU needs to be tuned before use to ensure the output heading is accurate.
         Run AngularScalarTuner and follow the instructions to get this value.
-         */
+         * /
         public double angularScalar = 1.0415;
 
         /*
@@ -49,7 +49,7 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
         The Y pod offset refers to how far forwards from the center the Y (strafe) odometry pod is:
         forward of the center is a positive number, backwards is a negative number.
         See the OctoQuad quickstart guide for a better explanation.
-         */
+         * /
         // These are tuned for 3110-0002-0001 Product Insight #1
         public double xOffset = -5.24373777; // inches
         public double yOffset = -3.412719295440588; // inches
@@ -61,14 +61,14 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
         This value should be more than one; for example, the value for the Gobilda 4 Bar Odometry Pod is 19.89436789.
         To get this value from inPerTick, first convert the value to millimeters (multiply by 25.4)
         and then take its inverse (one over the value)
-         */
+         * /
         public double encoderResolution = 19.89436789; // ticks / mm
 
         /*
         Set the direction that each of the two odometry pods count. The X (forward) pod should
         increase when you move the robot forward. And the Y (strafe) pod should increase when
         you move the robot to the left.
-         */
+         * /
         public OctoQuadFWv3.EncoderDirection xDirection = OctoQuadFWv3.EncoderDirection.FORWARD;
         public OctoQuadFWv3.EncoderDirection yDirection = OctoQuadFWv3.EncoderDirection.REVERSE;
 
@@ -78,7 +78,7 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
         You can also use the OctoQuad directly in MecanumDrive if this doesn't work for some reason;
          replace "imu" with "octoquad" or whatever your octoquad is called in config.
          Note: OctoQuad IMU is always used for base localization
-         */
+         * /
         public boolean useOctoQuadIMUForTuning = true;
     }
     public static Params PARAMS = new Params();
@@ -117,7 +117,7 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
 
         /*
         Reset the localization and calibrate the IMU.
-         */
+         * /
         octoquad.baseInitialize();
 
         octoquad.writePose(pose);
@@ -126,3 +126,4 @@ public class OctoQuadDrive extends AbsoluteLocalizerDrive {
     }
 
 }
+*/

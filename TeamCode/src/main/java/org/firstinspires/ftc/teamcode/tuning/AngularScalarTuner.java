@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.OctoQuadDrive;
+//import org.firstinspires.ftc.teamcode.OctoQuadDrive;
 import org.firstinspires.ftc.teamcode.SparkFunOTOSDrive;
 
 
@@ -19,9 +19,9 @@ public class AngularScalarTuner extends LinearOpMode {
         MecanumDrive drive;
         if (TuningOpModes.DRIVE_CLASS == SparkFunOTOSDrive.class) {
             drive = new SparkFunOTOSDrive(hardwareMap, new Pose2d(0, 0, 0));
-        } else if (TuningOpModes.DRIVE_CLASS == OctoQuadDrive.class) {
+        } /*else if (TuningOpModes.DRIVE_CLASS == OctoQuadDrive.class) {
             drive = new OctoQuadDrive(hardwareMap, new Pose2d(0, 0, 0));
-        } else {
+        }*/ else {
             throw new RuntimeException("Tuning Angular Scalar is only necessary with OctoQuad and OTOS.");
         }
         drive.leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

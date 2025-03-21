@@ -17,7 +17,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+ * /
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
@@ -53,7 +53,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  *
  * See the sensor's product page: https://www.tindie.com/products/35114/
- */
+ * /
 @TeleOp(name = "OctoQuad Basic", group="OctoQuad")
 @Disabled
 public class SensorOctoQuad extends LinearOpMode {
@@ -72,7 +72,7 @@ public class SensorOctoQuad extends LinearOpMode {
 
     /**
      * This function is executed when this OpMode is selected from the Driver Station.
-     */
+     * /
     @Override
     public void runOpMode() {
 
@@ -139,3 +139,4 @@ public class SensorOctoQuad extends LinearOpMode {
         posPerp  = positions[ODO_PERP];
     }
 }
+ */

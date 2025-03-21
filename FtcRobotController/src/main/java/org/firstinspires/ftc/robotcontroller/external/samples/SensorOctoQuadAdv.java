@@ -17,7 +17,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+ * /
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
@@ -78,7 +78,7 @@ import java.util.List;
  *       But leaving them in place is simpler for this example.
  *
  * See the sensor's product page: https://www.tindie.com/products/35114/
- */
+ * /
 @TeleOp(name="OctoQuad Advanced", group="OctoQuad")
 @Disabled
 public class SensorOctoQuadAdv extends LinearOpMode {
@@ -135,7 +135,7 @@ public class SensorOctoQuadAdv extends LinearOpMode {
  * - Creates 4 module classes, one for each swerve module
  * - Updates swerve drive status by reading all data from OctoQuad and Updating each module
  * - Displays all swerve drive data as telemetry
- */
+ * /
 class OctoSwerveDrive {
 
     private final OctoQuad octoquad;
@@ -184,7 +184,7 @@ class OctoSwerveDrive {
 
     /**
      * Updates all 4 swerve modules
-     */
+     * /
     public void updateModules() {
         // Read full OctoQuad data block and then pass DataBlock to each swerve module to update themselves.
         octoquad.readAllEncoderData(encoderDataBlock);
@@ -196,7 +196,7 @@ class OctoSwerveDrive {
     /**
      * Generate telemetry data for all modules.
      * @param telemetry OpMode Telemetry object
-     */
+     * /
     public void show(Telemetry telemetry) {
         //  create general header block and then have each module add its own telemetry
         telemetry.addData("pos", "   Count     CPS  Degree    DPS");
@@ -208,7 +208,7 @@ class OctoSwerveDrive {
 
 /***
  * The OctoSwerveModule class manages a single swerve module
- */
+ * /
 class OctoSwerveModule {
 
     public  double driveCounts;
@@ -236,7 +236,7 @@ class OctoSwerveModule {
      * @param name name used for telemetry display
      * @param quadChannel Quadrature encoder channel.  Pulse Width channel is this + 4
      * @param angleOffset Angle to subtract from absolute encoder to calibrate zero position. (see comments above)
-     */
+     * /
     public OctoSwerveModule (OctoQuad octoquad, String name, int quadChannel, double angleOffset) {
         this.name = name;
         this.channel = quadChannel;
@@ -257,7 +257,7 @@ class OctoSwerveModule {
     /***
      * Calculate the Swerve module's position and velocity values
      * @param encoderDataBlock  most recent full data block read from OctoQuad.
-     */
+     * /
     public void updateModule(OctoQuad.EncoderDataBlock encoderDataBlock) {
         driveCounts = encoderDataBlock.positions[channel];  // get Counts.
         driveCountsPerSec = encoderDataBlock.velocities[channel] * VELOCITY_SAMPLES_PER_S; // convert counts/interval to counts/sec
@@ -271,8 +271,9 @@ class OctoSwerveModule {
     /**
      * Display the Swerve module's state as telemetry
      * @param telemetry OpMode Telemetry object
-     */
+     * /
     public void show(Telemetry telemetry) {
         telemetry.addData(name, "%8.0f %7.0f %7.0f %6.0f", driveCounts, driveCountsPerSec, steerDegrees, steerDegreesPerSec);
     }
 }
+*/

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.OctoQuadDrive;
+//import org.firstinspires.ftc.teamcode.OctoQuadDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.SparkFunOTOSDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
@@ -37,12 +37,10 @@ public final class SplineTest extends LinearOpMode {
         Actions.runBlocking(
                 drive.actionBuilder(beginPose)
 
-
-                        .setTangent(Math.toRadians(330))
-                        .lineToY(-52)
-
+                        .setTangent(90)
+                        .lineToY(-50)
                         .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
+                        .strafeToSplineHeading(new Vector2d(-55, -55), Math.toRadians(45))
 
                         .waitSeconds(0.5)
 
@@ -77,8 +75,6 @@ public final class SplineTest extends LinearOpMode {
 
                         .setReversed(true)
                         .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
-
-                        .waitSeconds(0.5)
 
 
                         .setReversed(false)

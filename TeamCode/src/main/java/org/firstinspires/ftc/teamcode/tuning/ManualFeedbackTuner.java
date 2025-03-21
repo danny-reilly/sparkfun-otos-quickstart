@@ -11,7 +11,7 @@ public final class ManualFeedbackTuner extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        if (TuningOpModes.DRIVE_CLASS.equals(OctoQuadDrive.class)) {
+        if /*(TuningOpModes.DRIVE_CLASS.equals(OctoQuadDrive.class)) {
             OctoQuadDrive drive = new OctoQuadDrive(hardwareMap, new Pose2d(0, 0, 0));
 
             waitForStart();
@@ -24,7 +24,7 @@ public final class ManualFeedbackTuner extends LinearOpMode {
                                 .build());
             }
 
-        } else if (TuningOpModes.DRIVE_CLASS.equals(PinpointDrive.class)) {
+        } else if*/ (TuningOpModes.DRIVE_CLASS.equals(PinpointDrive.class)) {
             PinpointDrive drive = new PinpointDrive(hardwareMap, new Pose2d(0, 0, 0));
 
             waitForStart();
@@ -90,8 +90,8 @@ public final class ManualFeedbackTuner extends LinearOpMode {
                                 .lineToX(0)
                                 .build());
             }
-        } else {
-            throw new RuntimeException();
-        }
+        }// else {
+           // throw new RuntimeException();
+        //}
     }
 }

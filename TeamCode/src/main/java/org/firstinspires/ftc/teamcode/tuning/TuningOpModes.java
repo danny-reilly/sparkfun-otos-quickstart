@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class TuningOpModes {
-    public static final Class<?> DRIVE_CLASS = OctoQuadDrive.class; // TODO: change to your drive class i.e. PinpointDrive if using pinpoint
+    public static final Class<?> DRIVE_CLASS = PinpointDrive.class; // TODO: change to your drive class i.e. PinpointDrive if using pinpoint
 
     public static final String GROUP = "quickstart";
     public static final boolean DISABLED = false;
@@ -40,7 +40,7 @@ public final class TuningOpModes {
         if (DISABLED) return;
 
         DriveViewFactory dvf;
-        if (DRIVE_CLASS.equals(OctoQuadDrive.class)) {
+        if/* (DRIVE_CLASS.equals(OctoQuadDrive.class)) {
             dvf = hardwareMap -> {
                 OctoQuadDrive drive = new OctoQuadDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -76,7 +76,7 @@ public final class TuningOpModes {
                 );
             };
 
-        } else if (DRIVE_CLASS.equals(PinpointDrive.class)) {
+        } else if */(DRIVE_CLASS.equals(PinpointDrive.class)) {
                 dvf = hardwareMap -> {
                     PinpointDrive pd = new PinpointDrive(hardwareMap, new Pose2d(0, 0, 0));
 
