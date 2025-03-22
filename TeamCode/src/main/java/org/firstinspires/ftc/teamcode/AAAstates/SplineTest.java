@@ -280,14 +280,17 @@ public class SplineTest extends LinearOpMode {
                         vArm.VArmDump(),
                         new SleepAction(0.8),
                         vArm.VArmDown(),
+                            new SleepAction(0.5),
 
                         //get 1
                         vSlide.setVSlideSpeed(-0.6),
                         hArm.hArmDown(),
                         hSlide.SetHSlidePos(0.475),
                         claw.OpenClaw(),
+                            new SleepAction(1),
                         SpikeSample1,
                         claw.CloseClaw(),
+                            new SleepAction(1),
                         Transfer,
 
                         //dump 1
@@ -295,12 +298,14 @@ public class SplineTest extends LinearOpMode {
                         vArm.VArmDump(),
                         new SleepAction(0.8),
                         vArm.VArmDown(),
+                            new SleepAction(1),
 
                         //get 2
                         vSlide.setVSlideSpeed(-0.6),
                         hArm.hArmDown(),
                         hSlide.SetHSlidePos(0.475),
                         claw.OpenClaw(),
+                            new SleepAction(1),
                         SpikeSample2,
                         claw.CloseClaw(),
                         Transfer,
@@ -310,12 +315,14 @@ public class SplineTest extends LinearOpMode {
                         vArm.VArmDump(),
                         new SleepAction(0.8),
                         vArm.VArmDown(),
+                            new SleepAction(1),
 
                         //get 3
                         vSlide.setVSlideSpeed(-0.6),
                         hArm.hArmDown(),
                         hSlide.SetHSlidePos(0.420),
                         claw.OpenClaw(),
+                            new SleepAction(1),
                         SpikeSample3,
                         claw.CloseClaw(),
                         Transfer,
@@ -325,10 +332,12 @@ public class SplineTest extends LinearOpMode {
                         vArm.VArmDump(),
                         new SleepAction(0.8),
                         vArm.VArmDown(),
+                            new SleepAction(1),
 
                         //Park
                         vSlide.setVSlideSpeed(-0.6),
                         vArm.VArmDump(),
+                            new SleepAction(1),
                         Park
                         )
                         /*
