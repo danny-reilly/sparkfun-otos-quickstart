@@ -26,9 +26,9 @@ public class MeepMeepTesting {
 
 
                         .setReversed(true)
-                        .strafeToSplineHeading(new Vector2d(-55, -55), Math.toRadians(45))
+                        .strafeToSplineHeading(new Vector2d(-40, -40), Math.toRadians(45))
 
-                        .waitSeconds(0.5)
+                        .waitSeconds(500)
 
                         .setReversed(false)
                         .splineTo(new Vector2d(-48, -38), Math.toRadians(90))

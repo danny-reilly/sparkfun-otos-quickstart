@@ -78,10 +78,10 @@ public class MainMovement extends LinearOpMode {
     @Override
     public void runOpMode() {
         // initializing the motors (pseudocode) (:skull:, :fire:, :splash:, :articulated-lorry:, :flushed:, :weary:, :sob:);
-        leftBack = hardwareMap.get(DcMotor.class, "leftBack"); //    CH0
-        rightBack = hardwareMap.get(DcMotor.class, "rightBack"); //   EH0
-        leftFront = hardwareMap.get(DcMotor.class, "leftFront"); //   CH1
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront"); //  EH1
+        leftBack = hardwareMap.get(DcMotor.class, "left_back"); //    CH0
+        rightBack = hardwareMap.get(DcMotor.class, "right_back"); //   EH0
+        leftFront = hardwareMap.get(DcMotor.class, "left_front"); //   CH1
+        rightFront = hardwareMap.get(DcMotor.class, "right_front"); //  EH1
         vLinearSlideLeft = hardwareMap.get(DcMotor.class, "vertical_slide_left"); // CH2
         vLinearSlideRight = hardwareMap.get(DcMotor.class, "vertical_slide_right"); //  EH2
 
