@@ -276,8 +276,8 @@ public class SplineTest extends LinearOpMode {
             Vector2d bucketVector3 = new Vector2d(-60, -47);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-            Vector2d SS1Vector = new Vector2d(-53, -42);
-            Vector2d SS2Vector = new Vector2d(-70, -42);
+            Vector2d SS1Vector = new Vector2d(-45, -41);
+            Vector2d SS2Vector = new Vector2d(-70, -41);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
             Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
@@ -381,7 +381,7 @@ public class SplineTest extends LinearOpMode {
                             claw.CloseClaw(),
                             new SleepAction(0.8),
 
-                            new Transfer,
+                            Transfer,
 
                             //dump 1
 
@@ -403,8 +403,15 @@ public class SplineTest extends LinearOpMode {
                             claw.CloseClaw(),
                             new SleepAction(1),
 
-                            new Transfer,
-
+                            hArm.hArmUp(),
+                            hSlide.setHLSPos(hsOut),
+                            new SleepAction(0.8),
+                            hSlide.setHLSPos(hsIn),
+                            new SleepAction(0.6),
+                            claw.halfCloseClaw(),
+                            new SleepAction(0.2),
+                            hSlide.setHLSPos(hsOut),
+                            new SleepAction(0.7),
                             //dump 2
                             vSlide.setVSlideSpeed(0.9),
                             ToBucket2, new SleepAction(0.5),
