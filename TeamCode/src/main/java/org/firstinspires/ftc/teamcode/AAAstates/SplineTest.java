@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.AAAstates;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SleepAction;
@@ -30,9 +31,8 @@ public class SplineTest extends LinearOpMode {
     double hsOut = 0.377;
     double vArmDumpPos = 0;
     double vArmDownPos = 0.82;
-    double hsPos = hsIn;
-    double hArmUp = 0.015f;
-    double hArmDown = 0.7175f;
+    double hArmUp = 0.7175;
+    double hArmDown = 0.015;
 
     public class Claw {
         private Servo clawServo;
@@ -41,43 +41,46 @@ public class SplineTest extends LinearOpMode {
             clawServo = hardwareMap.get(Servo.class, "horizontal_claw");
         }
 
-        public class openClaw implements Action {
+       /* public class openClaw implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                clawServo.setPosition(0.377);
+                //clawServo.setPosition(0.377);
                 return false;
             }
 
-        }
+        }*/
 
         public Action OpenClaw() {
-            return new openClaw();
+            return new InstantAction(() -> clawServo.setPosition(0.377));
+            //return new openClaw();
         }
 
-        public class halfCloseClaw implements Action {
+        /*public class halfCloseClaw implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                clawServo.setPosition(0.625);
+                //clawServo.setPosition(0.625);
                 return false;
             }
 
-        }
+        }*/
 
         public Action halfCloseClaw() {
-            return new halfCloseClaw();
+            return new InstantAction(() -> clawServo.setPosition(0.625));
+            //return new halfCloseClaw();
         }
 
-        public class closeClaw implements Action {
+        /*public class closeClaw implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                clawServo.setPosition(0.75);
+                //clawServo.setPosition(0.75);
                 return false;
             }
 
-        }
+        }*/
 
         public Action CloseClaw() {
-            return new closeClaw();
+            return new InstantAction(() -> clawServo.setPosition(0.75));
+            //return new closeClaw();
         }
 
     }
@@ -89,7 +92,7 @@ public class SplineTest extends LinearOpMode {
             vArmServo = hardwareMap.get(Servo.class, "bucket_arm_woohoo");
         }
 
-        public class VArmDump implements Action {
+        /*public class VArmDump implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 vArmServo.setPosition(vArmDumpPos);
@@ -97,13 +100,14 @@ public class SplineTest extends LinearOpMode {
                 return false;
             }
 
-        }
+        }*/
 
         public Action VArmDump() {
-            return new VArmDump();
+            return new InstantAction(() -> vArmServo.setPosition(vArmDumpPos));
+            //return new VArmDump();
         }
 
-        public class VArmDown implements Action {
+        /*public class VArmDown implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 vArmServo.setPosition(vArmDownPos);
@@ -111,10 +115,11 @@ public class SplineTest extends LinearOpMode {
                 return false;
             }
 
-        }
+        }*/
 
         public Action VArmDown() {
-            return new VArmDown();
+            return new InstantAction(() -> vArmServo.setPosition(vArmDownPos));
+            //return new VArmDown();
         }
 
     }
@@ -128,15 +133,15 @@ public class SplineTest extends LinearOpMode {
             vLinearSlideRight = hardwareMap.get(DcMotor.class, "vertical_slide_right"); //  EH2
         }
 
-        public class SetVSlideSpeed implements Action {
+        /*public class SetVSlideSpeed implements Action {
             private double vsSpeed;
             public SetVSlideSpeed(double speed) {
                 vsSpeed = speed;
             }
 
-            @Override
+            /*@Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                telemetry.addData("VSpeedbefore", vsSpeed);
+                /*telemetry.addData("VSpeedbefore", vsSpeed);
                 vLinearSlideLeft.setPower(-vsSpeed);
                 vLinearSlideRight.setPower(vsSpeed);
                 telemetry.addData("VSpeedbafter", vsSpeed);
@@ -145,11 +150,19 @@ public class SplineTest extends LinearOpMode {
             }
 
 
-        }
+        }*/
 
 
-        public Action setVSlideSpeed(double speed) {
+        /*public Action setVSlideSpeed(double speed) {
             return new SetVSlideSpeed(speed);
+        }*/
+
+        void setVLSPowers(double speed) {
+            vLinearSlideLeft.setPower(-speed);
+            vLinearSlideRight.setPower(speed);
+        }
+        public Action setVSlideSpeed(double speed) {
+            return new InstantAction(() -> setVLSPowers(speed));
         }
     }
 
@@ -163,7 +176,7 @@ public class SplineTest extends LinearOpMode {
             hLinearSlideRight = hardwareMap.get(Servo.class, "horizontal_slide_right");
         }
 
-        public class SetHSlidePos implements Action {
+        /*public class SetHSlidePos implements Action {
             private double hsPos = hsIn;
             public SetHSlidePos(double pos) {
                 hsPos = pos;
@@ -178,6 +191,14 @@ public class SplineTest extends LinearOpMode {
 
         public Action SetHSlidePos(double pos) {
             return new SetHSlidePos(pos);
+        } */
+        void setHLSPositions(double position) {
+            hLinearSlideRight.setPosition(position);
+            hLinearSlideLeft.setPosition((-0.95846 * position) + 0.68634);
+        }
+
+        public Action setHLSPos(double pos) {
+            return new InstantAction(() -> setHLSPositions(pos));
         }
     }
     public class WaitTime {
@@ -216,28 +237,30 @@ public class SplineTest extends LinearOpMode {
             hArmServo = hardwareMap.get(Servo.class, "horizontal_arm");
         }
 
-        public class hArmUp implements Action {
+        /*public class hArmUp implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 hArmServo.setPosition(hArmUp);
                 return false;
             }
-        }
+        }*/
 
         public Action hArmUp() {
-            return new hArmUp();
+            return new InstantAction(() -> hArmServo.setPosition(hArmUp));
+            //return new hArmUp();
         }
 
-        public class hArmDown implements Action {
+        /*public class hArmDown implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 hArmServo.setPosition(hArmDown);
                 return false;
             }
-        }
+        }*/
 
         public Action hArmDown() {
-            return new hArmUp();
+            return new InstantAction(() -> hArmServo.setPosition(hArmDown));
+            //return new hArmUp();
         }
     }
 
@@ -253,8 +276,8 @@ public class SplineTest extends LinearOpMode {
             Vector2d bucketVector3 = new Vector2d(-60, -47);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-            Vector2d SS1Vector = new Vector2d(-53, -38);
-            Vector2d SS2Vector = new Vector2d(-70, -38);
+            Vector2d SS1Vector = new Vector2d(-53, -40);
+            Vector2d SS2Vector = new Vector2d(-70, -40);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
             Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
@@ -302,14 +325,14 @@ public class SplineTest extends LinearOpMode {
 
             SequentialAction Transfer = new SequentialAction(
                     hArm.hArmUp(),
-                    new SleepAction(0.6),
-                    hSlide.SetHSlidePos(hsIn),
+                    hSlide.setHLSPos(hsOut),
+                    new SleepAction(0.8),
+                    hSlide.setHLSPos(hsIn),
                     new SleepAction(0.6),
                     claw.halfCloseClaw(),
                     new SleepAction(0.2),
-                    hSlide.SetHSlidePos(hsOut),
-                    new SleepAction(0.1),
-                    vSlide.setVSlideSpeed(0.85)
+                    hSlide.setHLSPos(hsOut),
+                    new SleepAction(0.7)
             );
 
 
@@ -339,48 +362,56 @@ public class SplineTest extends LinearOpMode {
                     new SequentialAction(
 
                             //dump preload
-                            new ParallelAction(
-                                vSlide.setVSlideSpeed(0.9),
-                                ToBucket0),
-                            new ParallelAction(
-                                    vSlide.setVSlideSpeed(0.9),
-                                    vArm.VArmDump(),
-                                    waitTime.Wait(2000)),
-
+                            vSlide.setVSlideSpeed(0.9),
+                            ToBucket0,
+                            vArm.VArmDump(),
+                            new SleepAction(1.7),
                             vArm.VArmDown(),
+                            new SleepAction(0.75),
 
                             //get 1
-                            vSlide.setVSlideSpeed(-0.7),
                             hArm.hArmDown(),
-                            waitTime.Wait(1000),
-                            hSlide.SetHSlidePos(hsOut),
+                            new SleepAction(1),
+                            hSlide.setHLSPos(hsIn-0.05),
                             claw.OpenClaw(),
-                            waitTime.Wait(1000),
+                            new SleepAction(1),
                             SpikeSample1,
+                            vSlide.setVSlideSpeed(-0.7),
                             claw.CloseClaw(),
-                            waitTime.Wait(1000),
+                            new SleepAction(1),
 
-                            //Transfer,
+                            Transfer,
 
                             //dump 1
-                            //ToBucket1, new SleepAction(0.5),
-                             //vArm.VArmDump(),
-                            //new SleepAction(0.8),
-                            //vArm.VArmDown(),
-                            //new SleepAction(1),
+
+                            vSlide.setVSlideSpeed(0.9),
+                            ToBucket1, new SleepAction(0.5),
+                            vArm.VArmDump(),
+                            new SleepAction(1.7),
+                            vArm.VArmDown(),
+                            new SleepAction(0.75),
 
                             //get 2
-                            //vSlide.setVSlideSpeed(-0.6),
-                            //hArm.hArmDown(),
-                            //hSlide.SetHSlidePos(0.475),
-                            //claw.OpenClaw(),
-                            //  new SleepAction(1),
-                            SpikeSample2, new SleepAction(0.5),
-                            //claw.CloseClaw(),
-                            //Transfer,
+                            hArm.hArmDown(),
+                            new SleepAction(1),
+                            hSlide.setHLSPos(hsIn-0.05),
+                            claw.OpenClaw(),
+                            new SleepAction(1),
+                            SpikeSample2,
+                            vSlide.setVSlideSpeed(-0.7),
+                            claw.CloseClaw(),
+                            new SleepAction(1),
+
+                            Transfer,
 
                             //dump 2
+                            vSlide.setVSlideSpeed(0.9),
                             ToBucket2, new SleepAction(0.5),
+                            vArm.VArmDump(),
+                            new SleepAction(1.7),
+                            vArm.VArmDown(),
+                            new SleepAction(0.75)
+                            //ToBucket2, new SleepAction(0.5),
                             //vArm.VArmDump(),
                             //new SleepAction(0.8),
                             //vArm.VArmDown(),
@@ -392,12 +423,12 @@ public class SplineTest extends LinearOpMode {
                             // hSlide.SetHSlidePos(0.420),
                             //claw.OpenClaw(),
                             //  new SleepAction(1),
-                            SpikeSample3, new SleepAction(0.5),
+                            //SpikeSample3, new SleepAction(0.5),
                             //claw.CloseClaw(),
                             //Transfer,
 
                             //dump 3
-                            ToBucket3, new SleepAction(0.5),
+                            //ToBucket3, new SleepAction(0.5),
                             //vArm.VArmDump(),
                             //new SleepAction(0.8),
                             //vArm.VArmDown(),
@@ -407,7 +438,7 @@ public class SplineTest extends LinearOpMode {
                             //vSlide.setVSlideSpeed(-0.6),
                             //vArm.VArmDump(),
                             //  new SleepAction(1),
-                            Park
+                            //Park
 
                         /*
                         //drop 0
