@@ -267,7 +267,7 @@ public class SplineTest extends LinearOpMode {
         @Override
         public void runOpMode() throws InterruptedException {
 
-            Vector2d bucketVector0 = new Vector2d(-68, -45);
+            Vector2d bucketVector0 = new Vector2d(-70, -42);
             Pose2d bucketPose0 = new Pose2d(bucketVector0, Math.toRadians(45));
             Vector2d bucketVector1 = new Vector2d(-64, -49);
             Pose2d bucketPose1 = new Pose2d(bucketVector1, Math.toRadians(45));
@@ -276,8 +276,8 @@ public class SplineTest extends LinearOpMode {
             Vector2d bucketVector3 = new Vector2d(-60, -47);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-            Vector2d SS1Vector = new Vector2d(-53, -40);
-            Vector2d SS2Vector = new Vector2d(-70, -40);
+            Vector2d SS1Vector = new Vector2d(-53, -42);
+            Vector2d SS2Vector = new Vector2d(-70, -42);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
             Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
@@ -362,12 +362,13 @@ public class SplineTest extends LinearOpMode {
                     new SequentialAction(
 
                             //dump preload
+                            vArm.VArmDown(),
                             vSlide.setVSlideSpeed(0.9),
                             ToBucket0,
                             vArm.VArmDump(),
-                            new SleepAction(1.7),
+                            new SleepAction(1.4),
                             vArm.VArmDown(),
-                            new SleepAction(0.75),
+                            new SleepAction(0.65),
 
                             //get 1
                             hArm.hArmDown(),
@@ -378,18 +379,18 @@ public class SplineTest extends LinearOpMode {
                             SpikeSample1,
                             vSlide.setVSlideSpeed(-0.7),
                             claw.CloseClaw(),
-                            new SleepAction(1),
+                            new SleepAction(0.8),
 
-                            Transfer,
+                            new Transfer,
 
                             //dump 1
 
                             vSlide.setVSlideSpeed(0.9),
                             ToBucket1, new SleepAction(0.5),
                             vArm.VArmDump(),
-                            new SleepAction(1.7),
+                            new SleepAction(1.4),
                             vArm.VArmDown(),
-                            new SleepAction(0.75),
+                            new SleepAction(0.65),
 
                             //get 2
                             hArm.hArmDown(),
@@ -402,7 +403,7 @@ public class SplineTest extends LinearOpMode {
                             claw.CloseClaw(),
                             new SleepAction(1),
 
-                            Transfer,
+                            new Transfer,
 
                             //dump 2
                             vSlide.setVSlideSpeed(0.9),
