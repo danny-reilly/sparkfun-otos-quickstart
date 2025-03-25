@@ -294,6 +294,9 @@ public class SplineTest extends LinearOpMode {
             TrajectoryActionBuilder ToBucketTAB0 = drive.actionBuilder(beginPose)
                     .setReversed(true)
                     .strafeToSplineHeading(bucketVector0, Math.toRadians(45));
+                    .addDisplacementMarker(0.9, 0 () -> {
+                        vArm.VArmDump(),
+                    })
             TrajectoryActionBuilder ToBucketTAB1 = drive.actionBuilder(SS1Pose)
                     .setReversed(true)
                     .strafeToSplineHeading(bucketVector1, Math.toRadians(45));
@@ -308,6 +311,13 @@ public class SplineTest extends LinearOpMode {
             TrajectoryActionBuilder SpikeSample1TAB = drive.actionBuilder(bucketPose0)
                     .setReversed(false)
                     .strafeToSplineHeading(SS1Vector, Math.toRadians(90));
+                    .addTemporalMarker(0.01, 0, () -> {
+                        hArm.hArmDown(),
+                        hSlide.setHLSPos(hsIn-0.05),
+                        claw.OpenClaw(),
+                        vSlide.setVSlideSpeed(-0.7),
+                        )
+                    }
 
             TrajectoryActionBuilder SpikeSample2TAB = drive.actionBuilder(bucketPose1)
                     .setReversed(false)
@@ -365,19 +375,16 @@ public class SplineTest extends LinearOpMode {
                             vArm.VArmDown(),
                             vSlide.setVSlideSpeed(0.9),
                             ToBucket0,
-                            vArm.VArmDump(),
-                            new SleepAction(1.4),
                             vArm.VArmDown(),
+                            hSlide.setHLSPos(hsOut),
                             new SleepAction(0.65),
 
                             //get 1
-                            hArm.hArmDown(),
-                            new SleepAction(1),
-                            hSlide.setHLSPos(hsIn-0.05),
-                            claw.OpenClaw(),
-                            new SleepAction(1),
+                            //hArm.hArmDown(),
+                            //hSlide.setHLSPos(hsIn-0.05),
+                            //claw.OpenClaw(),
+                            //new SleepAction(1),
                             SpikeSample1,
-                            vSlide.setVSlideSpeed(-0.7),
                             claw.CloseClaw(),
                             new SleepAction(0.8),
 
