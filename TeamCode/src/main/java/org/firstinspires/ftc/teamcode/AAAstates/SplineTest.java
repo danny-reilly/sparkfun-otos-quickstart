@@ -273,19 +273,19 @@ public class SplineTest extends LinearOpMode {
             Pose2d bucketPose1 = new Pose2d(bucketVector1, Math.toRadians(45));
             Vector2d bucketVector2 = new Vector2d(-53, -57);
             Pose2d bucketPose2 = new Pose2d(bucketVector2, Math.toRadians(45));
-            Vector2d bucketVector3 = new Vector2d(-60, -47);
+            Vector2d bucketVector3 = new Vector2d(-57, -50);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-            Vector2d SS1Vector = new Vector2d(-42, -41);
+            Vector2d SS1Vector = new Vector2d(-40, -41);
             Vector2d SS2Vector = new Vector2d(-68, -41);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Vector2d SS3aVector = new Vector2d(-42, -26);
-            Vector2d SS3testVector = new Vector2d(-70, -32);
+            Vector2d SS3testVector = new Vector2d(-70, -42);
             Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
             Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
             Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
             Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-            Pose2d SS3testPose = new Pose2d(SS3testVector, Math.toRadians(110));
+            Pose2d SS3testPose = new Pose2d(SS3testVector, Math.toRadians(120));
 
             PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
             Claw claw = new Claw(hardwareMap);
@@ -325,7 +325,7 @@ public class SplineTest extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));
             TrajectoryActionBuilder SpikeSample3testTAB = drive.actionBuilder(bucketPose2)
                     .setReversed(false)
-                    .strafeToSplineHeading(SS3testVector, Math.toRadians(110));
+                    .strafeToSplineHeading(SS3testVector, Math.toRadians(120));
             TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
                     .setReversed(false)
                     .splineTo(new Vector2d(-55, -10), Math.toRadians(180))
@@ -383,7 +383,7 @@ public class SplineTest extends LinearOpMode {
 
 
                             vArm.VArmDown(),
-                            new SleepAction(0.3),
+                            new SleepAction(0.2),
 
                             //get 1
                             hArm.hArmDown(),
@@ -433,7 +433,7 @@ public class SplineTest extends LinearOpMode {
                             new ParallelAction(
                                 SpikeSample2,
                                 new SequentialAction(
-                                        new SleepAction(0.4),
+                                        new SleepAction(0.5),
                                         claw.CloseClaw()
                                 )
                             ),
@@ -453,7 +453,7 @@ public class SplineTest extends LinearOpMode {
                             vSlide.setVSlideSpeed(0.9),
                             new ParallelAction(
                                     new SequentialAction(
-                                            new SleepAction(0.75),
+                                            new SleepAction(0.9),
                                             vArm.VArmDump()
                                     ),
                                     ToBucket2
@@ -467,7 +467,7 @@ public class SplineTest extends LinearOpMode {
                             hArm.hArmDown(),
                             new SleepAction(1),
                             hSlide.setHLSPos(hsIn-0.05),
-                            claw.OpenClaw(),
+                            claw.halfCloseClaw(),
                             new SleepAction(1),
                             new ParallelAction(
                                     SpikeSample3test,
