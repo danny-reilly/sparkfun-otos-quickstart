@@ -325,7 +325,7 @@ public class SplineTest extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));
             TrajectoryActionBuilder SpikeSample3testTAB = drive.actionBuilder(bucketPose2)
                     .setReversed(false)
-                    .strafeToSplineHeading(SS3aVector, Math.toRadians(180));
+                    .strafeToSplineHeading(SS3testVector, Math.toRadians(110));
             TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
                     .setReversed(false)
                     .splineTo(new Vector2d(-55, -10), Math.toRadians(180))
@@ -354,7 +354,7 @@ public class SplineTest extends LinearOpMode {
             Action SpikeSample2 = SpikeSample2TAB.build();
             Action SpikeSample3 = SpikeSample3TAB.build();
             Action SpikeSample3a = SpikeSample3aTAB.build();
-            Action SpikeSample3test = SpikeSample3aTAB.build();
+            Action SpikeSample3test = SpikeSample3testTAB.build();
             Action Park = ParkTAB.build();
 
 
