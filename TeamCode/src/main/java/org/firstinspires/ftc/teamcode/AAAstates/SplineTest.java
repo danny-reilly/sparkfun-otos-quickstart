@@ -280,10 +280,12 @@ public class SplineTest extends LinearOpMode {
             Vector2d SS2Vector = new Vector2d(-68, -41);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Vector2d SS3aVector = new Vector2d(-42, -26);
+            Vector2d SS3testVector = new Vector2d(-70, -32);
             Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
             Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
             Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
             Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
+            Pose2d SS3testPose = new Pose2d(SS3testVector, Math.toRadians(110));
 
             PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
             Claw claw = new Claw(hardwareMap);
@@ -302,7 +304,7 @@ public class SplineTest extends LinearOpMode {
             TrajectoryActionBuilder ToBucketTAB2 = drive.actionBuilder(SS2Pose)
                     .setReversed(true)
                     .strafeToSplineHeading(bucketVector2, Math.toRadians(45));
-            TrajectoryActionBuilder ToBucketTAB3 = drive.actionBuilder(SS3aPose)
+            TrajectoryActionBuilder ToBucketTAB3 = drive.actionBuilder(SS3testPose)
                     .setReversed(true)
                     .strafeToSplineHeading(bucketVector3, Math.toRadians(45));
 
@@ -319,6 +321,9 @@ public class SplineTest extends LinearOpMode {
                     .setReversed(false)
                     .splineTo(SS3Vector, Math.toRadians(180));
             TrajectoryActionBuilder SpikeSample3aTAB = drive.actionBuilder(SS3Pose)
+                    .setReversed(false)
+                    .strafeToSplineHeading(SS3aVector, Math.toRadians(180));
+            TrajectoryActionBuilder SpikeSample3testTAB = drive.actionBuilder(bucketPose2)
                     .setReversed(false)
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));
             TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
@@ -349,6 +354,7 @@ public class SplineTest extends LinearOpMode {
             Action SpikeSample2 = SpikeSample2TAB.build();
             Action SpikeSample3 = SpikeSample3TAB.build();
             Action SpikeSample3a = SpikeSample3aTAB.build();
+            Action SpikeSample3test = SpikeSample3aTAB.build();
             Action Park = ParkTAB.build();
 
 
@@ -377,24 +383,25 @@ public class SplineTest extends LinearOpMode {
 
 
                             vArm.VArmDown(),
-                            new SleepAction(0.65),
+                            new SleepAction(0.3),
 
                             //get 1
                             hArm.hArmDown(),
                             claw.OpenClaw(),
                             new SleepAction(1),
                             hSlide.setHLSPos(hsIn),
-                            SpikeSample1,
 
                             new ParallelAction(
-                                vSlide.setVSlideSpeed(-0.7),
-                                hSlide.setHLSPos(hsOut),
-                                claw.CloseClaw(),
-                                new SleepAction(1)
+                                SpikeSample1,
+                                new SequentialAction(
+                                    new SleepAction(1),
+                                    vSlide.setVSlideSpeed(-0.7),
+                                    hSlide.setHLSPos(hsOut + 0.075),
+                                    claw.CloseClaw()
+                                )
                             ),
 
                             hArm.hArmUp(),
-                            hSlide.setHLSPos(hsOut + 0.15),
                             hSlide.setHLSPos(hsOut),
                             new SleepAction(0.8),
                             hSlide.setHLSPos(hsIn),
@@ -402,28 +409,35 @@ public class SplineTest extends LinearOpMode {
                             claw.halfCloseClaw(),
                             new SleepAction(0.2),
                             hSlide.setHLSPos(hsOut),
-                            new SleepAction(0.7),
+                            new SleepAction(0.3),
 
                             //dump 1
 
                             vSlide.setVSlideSpeed(0.9),
 
-                            ToBucket1,
-                            vArm.VArmDump(),
-                            new SleepAction(1.4),
+                            new ParallelAction(
+                                new SequentialAction(
+                                    new SleepAction(0.75),
+                                    vArm.VArmDump()
+                                ),
+                                ToBucket1
+                            ),
                             vArm.VArmDown(),
-                            new SleepAction(0.65),
+                            new SleepAction(0.75),
 
                             //get 2
                             hArm.hArmDown(),
                             new SleepAction(0.25),
                             hSlide.setHLSPos(hsIn-0.05),
                             claw.OpenClaw(),
-                            new SleepAction(0.5),
-                            SpikeSample2,
+                            new ParallelAction(
+                                SpikeSample2,
+                                new SequentialAction(
+                                        new SleepAction(0.4),
+                                        claw.CloseClaw()
+                                )
+                            ),
                             vSlide.setVSlideSpeed(-0.7),
-                            claw.CloseClaw(),
-                            new SleepAction(1),
 
                             hArm.hArmUp(),
                             hSlide.setHLSPos(hsOut),
@@ -433,13 +447,19 @@ public class SplineTest extends LinearOpMode {
                             claw.halfCloseClaw(),
                             new SleepAction(0.2),
                             hSlide.setHLSPos(hsOut),
-                            new SleepAction(0.7),
+                            new SleepAction(0.2),
 
                             //dump 2
                             vSlide.setVSlideSpeed(0.9),
-                            ToBucket2, new SleepAction(0.5),
+                            new ParallelAction(
+                                    new SequentialAction(
+                                            new SleepAction(0.75),
+                                            vArm.VArmDump()
+                                    ),
+                                    ToBucket2
+                            ),
                             vArm.VArmDump(),
-                            new SleepAction(1.7),
+                            new SleepAction(0.75),
                             vArm.VArmDown(),
                             new SleepAction(0.75),
 
@@ -449,13 +469,32 @@ public class SplineTest extends LinearOpMode {
                             hSlide.setHLSPos(hsIn-0.05),
                             claw.OpenClaw(),
                             new SleepAction(1),
-                            SpikeSample3,
-                            vSlide.setVSlideSpeed(-0.7),
-                            hSlide.setHLSPos(hsOut + 0.1),
-                            claw.CloseClaw(),
+                            new ParallelAction(
+                                    SpikeSample3test,
+                                    new SequentialAction(
+                                            new SleepAction(1.3),
+                                            vSlide.setVSlideSpeed(-0.7),
+                                            hSlide.setHLSPos(hsOut + 0.1),
+                                            claw.CloseClaw()
+                                    )
+                            ),
+                            //get 3
+                            /*hArm.hArmDown(),
                             new SleepAction(1),
-                            SpikeSample3a,
-
+                            hSlide.setHLSPos(hsIn-0.05),
+                            claw.OpenClaw(),
+                            new SleepAction(1),
+                            new ParallelAction(
+                                SpikeSample3,
+                                new SequentialAction(
+                                    new SleepAction(1.3),
+                                    vSlide.setVSlideSpeed(-0.7),
+                                    hSlide.setHLSPos(hsOut + 0.1),
+                                    claw.CloseClaw()
+                                )
+                            ),
+                            SpikeSample3a, //(To go backwards)
+                            */
 
                             hArm.hArmUp(),
                             hSlide.setHLSPos(hsOut),
@@ -465,15 +504,19 @@ public class SplineTest extends LinearOpMode {
                             claw.halfCloseClaw(),
                             new SleepAction(0.2),
                             hSlide.setHLSPos(hsOut),
-                            new SleepAction(0.7),
+                            new SleepAction(0.4),
 
                             //dump 3
                             vSlide.setVSlideSpeed(0.9),
-                            ToBucket3, new SleepAction(0.5),
-                            vArm.VArmDump(),
-                            new SleepAction(1.7),
+                            new ParallelAction(
+                                    new SequentialAction(
+                                            new SleepAction(0.8),
+                                            vArm.VArmDump()
+                                    ),
+                                    ToBucket3
+                            ),
                             vArm.VArmDown(),
-                            new SleepAction(0.75),
+                            new SleepAction(0.5),
 
 
                             //park
@@ -481,73 +524,8 @@ public class SplineTest extends LinearOpMode {
                             vSlide.setVSlideSpeed(-0.25),
                             vArm.VArmDump(),
                             Park,
-                            vArm.VArmDump()
-
-
-                            //vSlide.setVSlideSpeed(-0.6),
-                            // hArm.hArmDown(),
-                            // hSlide.SetHSlidePos(0.420),
-                            //claw.OpenClaw(),
-                            //  new SleepAction(1),
-                            //SpikeSample3, new SleepAction(0.5),
-                            //claw.CloseClaw(),
-                            //Transfer,
-
-                            //dump 3
-                            //ToBucket3, new SleepAction(0.5),
-                            //vArm.VArmDump(),
-                            //new SleepAction(0.8),
-                            //vArm.VArmDown(),
-                            //  new SleepAction(1),
-
-                            //Park
-                            //vSlide.setVSlideSpeed(-0.6),
-                            //vArm.VArmDump(),
-                            //  new SleepAction(1),
-                            //Park
-
-                        /*
-                        //drop 0
-                        .setTangent(90)
-                        .lineToY(-30)
-                        .setReversed(true)
-                        .strafeToSplineHeading(bucketPose, Math.toRadians(45))
-                        .waitSeconds(0.5)
-
-                        //get 1
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-48, -38), Math.toRadians(90))
-                        .waitSeconds(0.5)
-
-                        //drop 1
-                        .setReversed(true)
-                        .splineTo(bucketPose, Math.toRadians(225))
-                        .waitSeconds(0.5)
-
-                        //get 2
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-58, -38), Math.toRadians(90))
-                        .waitSeconds(0.5)
-
-                        /drop 2
-                        .setReversed(true)
-                        .splineTo(bucketPose, Math.toRadians(225))
-                        .waitSeconds(0.5)
-
-                        //get 3
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-52, -26), Math.toRadians(180))
-                        .waitSeconds(0.5)
-
-                        //drop 3
-                        .setReversed(true)
-                        .splineTo(bucketPose, Math.toRadians(225))
-
-                        //park
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-55, -10), Math.toRadians(180))
-                        .strafeToSplineHeading(new Vector2d(-24, -10), Math.toRadians(180))
-                         */
+                            vArm.VArmDump(),
+                            new SleepAction(0.75)
                     ));
         }
     }
