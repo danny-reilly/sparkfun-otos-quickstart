@@ -383,18 +383,17 @@ public class SplineTest extends LinearOpMode {
 
 
                             vArm.VArmDown(),
-                            new SleepAction(0.2),
 
                             //get 1
                             hArm.hArmDown(),
                             claw.OpenClaw(),
-                            new SleepAction(1),
+                            new SleepAction(0.9),
                             hSlide.setHLSPos(hsIn),
 
                             new ParallelAction(
                                 SpikeSample1,
                                 new SequentialAction(
-                                    new SleepAction(1),
+                                    new SleepAction(0.8),
                                     vSlide.setVSlideSpeed(-0.7),
                                     hSlide.setHLSPos(hsOut + 0.075),
                                     claw.CloseClaw()
@@ -405,9 +404,9 @@ public class SplineTest extends LinearOpMode {
                             hSlide.setHLSPos(hsOut),
                             new SleepAction(0.8),
                             hSlide.setHLSPos(hsIn),
-                            new SleepAction(0.6),
+                            new SleepAction(0.4),
                             claw.halfCloseClaw(),
-                            new SleepAction(0.2),
+                            new SleepAction(0.1),
                             hSlide.setHLSPos(hsOut),
                             new SleepAction(0.3),
 
@@ -423,11 +422,10 @@ public class SplineTest extends LinearOpMode {
                                 ToBucket1
                             ),
                             vArm.VArmDown(),
-                            new SleepAction(0.75),
 
                             //get 2
                             hArm.hArmDown(),
-                            new SleepAction(0.25),
+                            new SleepAction(0.75),
                             hSlide.setHLSPos(hsIn-0.05),
                             claw.OpenClaw(),
                             new ParallelAction(
@@ -502,19 +500,20 @@ public class SplineTest extends LinearOpMode {
                             hSlide.setHLSPos(hsIn),
                             new SleepAction(0.6),
                             claw.halfCloseClaw(),
-                            new SleepAction(0.2),
+                            new SleepAction(0.1),
                             hSlide.setHLSPos(hsOut),
-                            new SleepAction(0.4),
+                            new SleepAction(0.2),
 
                             //dump 3
                             vSlide.setVSlideSpeed(0.9),
                             new ParallelAction(
                                     new SequentialAction(
-                                            new SleepAction(0.8),
+                                            new SleepAction(0.7),
                                             vArm.VArmDump()
                                     ),
                                     ToBucket3
-                            ),
+                            ),                           
+                            new SleepAction(0.1),
                             vArm.VArmDown(),
                             new SleepAction(0.5),
 
@@ -525,7 +524,7 @@ public class SplineTest extends LinearOpMode {
                             vArm.VArmDump(),
                             Park,
                             vArm.VArmDump(),
-                            new SleepAction(0.75)
+                            new SleepAction(0.5)
                     ));
         }
     }
