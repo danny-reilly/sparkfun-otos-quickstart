@@ -22,10 +22,8 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import kotlin.jvm.internal.TypeParameterReference;
-
-@Autonomous(name = "RegionalsAuto4Samp", group = "Autonomous")
-public class RegionalsAuto4Samp extends LinearOpMode {
+@Autonomous(name = "RegionalsAuto5Samp", group = "Autonomous")
+public class RegionalsAuto5Samp extends LinearOpMode {
 
     double hsIn = 0.5775;
     double hsOut = 0.377;
@@ -33,7 +31,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
     double vArmDownPos = 0.76;
     double hArmUp = 0.7175;
     double hArmDown = 0.0225;
-    double sweepOutPos = 0;
+    double sweepOutPos = 0.875;
     double sweepInPos = 0;
 
     public class Claw {
@@ -337,6 +335,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         HorizontalSlide hSlide = new HorizontalSlide(hardwareMap);
         HorizontalArm hArm = new HorizontalArm(hardwareMap);
         WaitTime waitTime = new WaitTime(hardwareMap);
+        Sweep sweep = new Sweep(hardwareMap);
 
         TrajectoryActionBuilder ToBucketTAB0 = drive.actionBuilder(beginPose)
                 .setReversed(true)
@@ -370,11 +369,11 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
                 .strafeToSplineHeading(SS3Vector, Math.toRadians(125));
-        TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
+        TrajectoryActionBuilder ChamberTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
-                .splineToSplineHeading(new Pose2d(new Vector2d(-26, 10), Math.toRadians(180)), 0)
+                .splineToSplineHeading(new Pose2d(new Vector2d(-24, -5), Math.toRadians(0)), 0)
                 .waitSeconds(0.2)
-                .strafeTo(new Vector2d(-24, 10));
+                .strafeTo(new Vector2d(-24, -5));
 
 
         SequentialAction Transfer = new SequentialAction(
@@ -400,7 +399,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         //Action SpikeSample3 = SpikeSample3TAB.build();
         //Action SpikeSample3a = SpikeSample3aTAB.build();
         Action SpikeSample3 = SpikeSample3TAB.build();
-        Action Park = ParkTAB.build();
+        Action Chamber = ChamberTAB.build();
 
 
         //RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
@@ -567,11 +566,19 @@ public class RegionalsAuto4Samp extends LinearOpMode {
 
                         //park
                         hSlide.setHLSPos(hsIn),
-                        vSlide.setVSlideSpeed(-0.25),
-                        vArm.VArmDump(),
-                        Park,
-                        vArm.VArmDump(),
+                        vSlide.setVSlideSpeed(0),
+                        new ParallelAction(
+                                Chamber,
+                                new SequentialAction(
+                                        new SleepAction(2),
+                                        sweep.SweepOut(),
+                                        new SleepAction(1),
+                                        sweep.SweepIn(),
+                                        hArm.hArmDown()
+                                        )
+                                ),
                         new SleepAction(0.5)
+
                 ));
     }
 }
