@@ -32,7 +32,7 @@ public class SplineTest extends LinearOpMode {
     double vArmDumpPos = 0;
     double vArmDownPos = 0.82;
     double hArmUp = 0.7175;
-    double hArmDown = 0.015;
+    double hArmDown = 0.0225;
 
     public class Claw {
         private Servo clawServo;
@@ -273,7 +273,7 @@ public class SplineTest extends LinearOpMode {
             Pose2d bucketPose1 = new Pose2d(bucketVector1, Math.toRadians(45));
             Vector2d bucketVector2 = new Vector2d(-53, -57);
             Pose2d bucketPose2 = new Pose2d(bucketVector2, Math.toRadians(45));
-            Vector2d bucketVector3 = new Vector2d(-57, -50);
+            Vector2d bucketVector3 = new Vector2d(-53, -55);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
             Vector2d SS1Vector = new Vector2d(-38, -41);
@@ -393,7 +393,7 @@ public class SplineTest extends LinearOpMode {
                             new ParallelAction(
                                 SpikeSample1,
                                 new SequentialAction(
-                                    new SleepAction(0.8),
+                                    new SleepAction(1),
                                     vSlide.setVSlideSpeed(-0.7),
                                     hSlide.setHLSPos(hsOut + 0.075),
                                     claw.CloseClaw()
@@ -432,7 +432,7 @@ public class SplineTest extends LinearOpMode {
                             new ParallelAction(
                                 SpikeSample2,
                                 new SequentialAction(
-                                        new SleepAction(0.5),
+                                        new SleepAction(0.75),
                                         claw.CloseClaw()
                                 )
                             ),
