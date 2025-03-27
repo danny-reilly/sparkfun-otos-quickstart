@@ -276,7 +276,7 @@ public class SplineTest extends LinearOpMode {
             Vector2d bucketVector3 = new Vector2d(-57, -50);
             Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
             Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-            Vector2d SS1Vector = new Vector2d(-40, -41);
+            Vector2d SS1Vector = new Vector2d(-38, -41);
             Vector2d SS2Vector = new Vector2d(-68, -41);
             Vector2d SS3Vector = new Vector2d(-52, -26);
             Vector2d SS3aVector = new Vector2d(-42, -26);
@@ -400,6 +400,7 @@ public class SplineTest extends LinearOpMode {
                                 )
                             ),
 
+                            new SleepAction(0.2),
                             hArm.hArmUp(),
                             hSlide.setHLSPos(hsOut),
                             new SleepAction(0.8),
@@ -435,6 +436,7 @@ public class SplineTest extends LinearOpMode {
                                         claw.CloseClaw()
                                 )
                             ),
+                            new SleepAction(0.2),
                             vSlide.setVSlideSpeed(-0.7),
 
                             hArm.hArmUp(),
@@ -476,6 +478,7 @@ public class SplineTest extends LinearOpMode {
                                             claw.CloseClaw()
                                     )
                             ),
+                            new SleepAction(0.2),
                             //get 3
                             /*hArm.hArmDown(),
                             new SleepAction(1),
@@ -513,7 +516,7 @@ public class SplineTest extends LinearOpMode {
                                     ),
                                     ToBucket3
                             ),                           
-                            new SleepAction(0.1),
+                            new SleepAction(0.3),
                             vArm.VArmDown(),
                             new SleepAction(0.5),
 
