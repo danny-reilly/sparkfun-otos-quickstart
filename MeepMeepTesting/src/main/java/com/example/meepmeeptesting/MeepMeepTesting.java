@@ -12,60 +12,23 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(650);
-        Pose2d beginPose = new Pose2d(-63.5, -34, Math.toRadians(270));
+        Pose2d beginPose = new Pose2d(-55, -55, Math.toRadians(45));
 
 
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(50, 60, Math.toRadians(180), Math.toRadians(180), 15)
 
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-33, -60, Math.toRadians(0)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, -55, Math.toRadians(45)))
+
+                //.splineTo(new Vector2d(-55, -10), Math.toRadians(180))
+
+                .splineToSplineHeading(new Pose2d(new Vector2d(-24, -7), Math.toRadians(180)), 0)
 
 
-                        .setReversed(true)
-                        .strafeToSplineHeading(new Vector2d(-40, -40), Math.toRadians(45))
-
-                        .waitSeconds(500)
-
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-48, -38), Math.toRadians(90))
-
-                        .waitSeconds(0.5)
-
-                        .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
-
-                        .waitSeconds(0.5)
-
-
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-58, -38), Math.toRadians(90))
-
-                        .waitSeconds(0.5)
-
-
-                        .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
-
-                        .waitSeconds(0.5)
-
-
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-52, -26), Math.toRadians(180))
-
-                        .waitSeconds(0.5)
-
-
-                        .setReversed(true)
-                        .splineTo(new Vector2d(-55, -55), Math.toRadians(225))
-
-
-                        .setReversed(false)
-                        .splineTo(new Vector2d(-55, -10), Math.toRadians(180))
-                        .strafeToSplineHeading(new Vector2d(-24, -10), Math.toRadians(180))
                                 .build());
 
                 meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
