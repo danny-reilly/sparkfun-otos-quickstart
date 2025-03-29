@@ -435,6 +435,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                                 hSlide.setHLSPos(hsIn)
                                         ),
                                         vArm.VArmDump()
+                                )
                         ),
 
 
