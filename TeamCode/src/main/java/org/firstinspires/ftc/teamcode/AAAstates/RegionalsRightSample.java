@@ -22,6 +22,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.Optional;
 import java.util.Vector;
 
 @Autonomous(name = "RegionalsAuto5Samp", group = "Autonomous")
@@ -310,11 +311,66 @@ public class RegionalsRightSample extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        Pose2d StartPose = new Pose2d(-25, 62, Math.toRadians(180));
+        PinpointDrive drive = new PinpointDrive(hardwareMap, StartPose);
+        RegionalsRightSample.Claw claw = new RegionalsRightSample.Claw(hardwareMap);
+        RegionalsRightSample.VArm vArm = new RegionalsRightSample.VArm(hardwareMap);
+        RegionalsRightSample.HorizontalSlide hSlide = new RegionalsRightSample.HorizontalSlide(hardwareMap);
+        RegionalsRightSample.HorizontalArm hArm = new RegionalsRightSample.HorizontalArm(hardwareMap);
+
+        TrajectoryActionBuilder MainTAB = drive.actionBuilder(StartPose)
+                .setReversed(true)
+                .strafeTo(new Vector2d(-30, 50))
+                .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(3, 60), Math.toRadians(0))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-59, 38), Math.toRadians(270))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(3, 55), Math.toRadians(0))
+                .waitSeconds(0.5)
+                .setReversed(true)
+                .splineToLinearHeading(new Pose2d(new Vector2d(-56, 27), Math.toRadians(180)), 4)
+                .waitSeconds(0.5)
+                .setReversed(false)
+                .strafeToLinearHeading(new Vector2d(3, 50), Math.toRadians(0));
+        Action MainTraj = MainTAB.build();
+
         waitForStart();
 
 
         Actions.runBlocking(
-                new SequentialAction(
+                new ParallelAction(
+                        new SequentialAction(
+                                new SleepAction(1.5),
+                                MainTraj
+                        ),
+                        new SequentialAction(
+                                //dump 0
+                                hArm.hArmDown(),
+                                claw.OpenClaw(),
+                                vArm.VArmDump(),
+                                //get 1
+                                new SleepAction(0.5),
+                                claw.CloseClaw(),
+                                //dump 1
+                                new SleepAction(1),
+                                claw.OpenClaw(),
+                                //get 2
+                                new SleepAction(1),
+                                claw.CloseClaw(),
+                                //dump 2
+                                new SleepAction(1),
+                                claw.OpenClaw(),
+                                //get 3
+                                new SleepAction(1),
+                                claw.CloseClaw(),
+                                //dump 3
+                                new SleepAction(1),
+                                claw.OpenClaw()
+
+
+                                )
                 )
         );
     }

@@ -26,7 +26,19 @@ public class MeepMeepTesting {
 
                 //.splineTo(new Vector2d(-55, -10), Math.toRadians(180))
                 .strafeTo(new Vector2d(-30, 50))
-                .strafeToLinearHeading(new Vector2d(-30, 50), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(3, 60), Math.toRadians(0))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-59, 38), Math.toRadians(270))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(3, 55), Math.toRadians(0))
+                .waitSeconds(0.5)
+                .setReversed(true)
+                .splineToLinearHeading(new Pose2d(new Vector2d(-56, 27), Math.toRadians(180)), 4)
+                .waitSeconds(0.5)
+                .setReversed(false)
+                .strafeToLinearHeading(new Vector2d(3, 50), Math.toRadians(0))
 
 
 
