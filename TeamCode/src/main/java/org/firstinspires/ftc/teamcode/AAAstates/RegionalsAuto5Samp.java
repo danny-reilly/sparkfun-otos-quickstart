@@ -612,7 +612,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                         //transfer
                                         hSlide.setHLSPos(hsOut),
                                         new SleepAction(0.8),
-                                        hSlide.setHLSPos(hsIn-0.04),
+                                        hSlide.setHLSPos(hsIn-0.03),
                                         new SleepAction(0.4),
                                         claw.halfCloseClaw(),
                                         new SleepAction(0.2),
