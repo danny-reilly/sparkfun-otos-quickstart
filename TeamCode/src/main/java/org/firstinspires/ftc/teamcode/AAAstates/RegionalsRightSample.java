@@ -319,20 +319,25 @@ public class RegionalsRightSample extends LinearOpMode {
         RegionalsRightSample.HorizontalArm hArm = new RegionalsRightSample.HorizontalArm(hardwareMap);
 
         TrajectoryActionBuilder MainTAB = drive.actionBuilder(StartPose)
-                .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-48, 42), Math.toRadians(270))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-25, 60), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(-20, 70), Math.toRadians(0))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-59, 38), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-82, 38), Math.toRadians(270))
+                .waitSeconds(1.5)
+                .strafeToLinearHeading(new Vector2d(-82, 65), Math.toRadians(270))
+
+
+                /*.strafeToLinearHeading(new Vector2d(-70, 38), Math.toRadians(270))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-25, 55), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(-15, 65), Math.toRadians(0))
                 .waitSeconds(0.5)
                 .setReversed(true)
-                .strafeToLinearHeading(new Vector2d(-56, 27), Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-60, 15), Math.toRadians(180))
                 .waitSeconds(0.5)
                 .setReversed(false)
-                .strafeToLinearHeading(new Vector2d(-25, 50), Math.toRadians(0))
-                .strafeToSplineHeading(new Vector2d(-54, 56), Math.toRadians(0));
+                .strafeToLinearHeading(new Vector2d(-15, 60), Math.toRadians(0))
+                .strafeToSplineHeading(new Vector2d(-54, 56), Math.toRadians(0))*/;
         Action MainTraj = MainTAB.build();
 
         waitForStart();
@@ -345,8 +350,32 @@ public class RegionalsRightSample extends LinearOpMode {
                                 MainTraj
                         ),
                         new SequentialAction(
-                                //dump 0
-                                /*hArm.hArmDown(),
+                                new SleepAction(1.5),
+                                hSlide.setHLSPos(hsIn),
+                                hArm.hArmDown(),
+                                claw.OpenClaw(),
+                                new SleepAction(2),
+                                hSlide.setHLSPos(hsIn - 0.1),
+                                claw.CloseClaw(),
+                                new SleepAction(0.25),
+                                hSlide.setHLSPos(hsIn),
+                                new SleepAction(2),
+                                claw.OpenClaw(),
+                                new SleepAction(3.5),
+                                hSlide.setHLSPos(hsIn-0.1),
+                                claw.CloseClaw(),
+                                new SleepAction(0.5),
+                                hArm.hArmUp(),
+                                hSlide.setHLSPos(hsOut),
+                                new SleepAction(0.8),
+                                hSlide.setHLSPos(hsIn),
+                                new SleepAction(0.4),
+                                claw.halfCloseClaw(),
+                                new SleepAction(0.1),
+                                hSlide.setHLSPos(hsOut)
+
+
+                                /*
                                 claw.OpenClaw(),
                                 //get 1
                                 new SleepAction(0.5),

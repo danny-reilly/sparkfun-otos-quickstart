@@ -23,24 +23,20 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-25, 62, Math.toRadians(180)))
-                .strafeToSplineHeading(new Vector2d(-54, 56), Math.toRadians(180))
-
-
                 .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-25, 60), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(-15, 70), Math.toRadians(0))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-59, 38), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-70, 38), Math.toRadians(270))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-25, 55), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(-15, 65), Math.toRadians(0))
                 .waitSeconds(0.5)
                 .setReversed(true)
-                .strafeToLinearHeading(new Vector2d(-56, 27), Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-60, 15), Math.toRadians(180))
                 .waitSeconds(0.5)
                 .setReversed(false)
-                .strafeToLinearHeading(new Vector2d(-25, 50), Math.toRadians(0))
-                        .strafeToSplineHeading(new Vector2d(-54, 56), Math.toRadians(0))
-
+                .strafeToLinearHeading(new Vector2d(-15, 60), Math.toRadians(0))
+                .strafeToSplineHeading(new Vector2d(-54, 56), Math.toRadians(0))
 
 
                 .build());

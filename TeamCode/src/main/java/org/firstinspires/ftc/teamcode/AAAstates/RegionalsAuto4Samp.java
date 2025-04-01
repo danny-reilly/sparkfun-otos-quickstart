@@ -323,12 +323,12 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-70, -42);
+        Vector2d SS3Vector = new Vector2d(-72, -42);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
         //Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(125));
+        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(122));
 
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         Claw claw = new Claw(hardwareMap);
@@ -369,7 +369,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));*/
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
-                .strafeToSplineHeading(SS3Vector, Math.toRadians(125));
+                .strafeToSplineHeading(SS3Vector, Math.toRadians(120));
         TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
                 .splineToSplineHeading(new Pose2d(new Vector2d(-26, 10), Math.toRadians(180)), 0)

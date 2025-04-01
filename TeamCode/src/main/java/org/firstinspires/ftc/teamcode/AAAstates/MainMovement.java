@@ -340,7 +340,7 @@ public class MainMovement extends LinearOpMode {
         hLinearSlideLeft.setPosition((-0.95846 * hLinearSlideRight.getPosition()) + 0.68634);
     }
     private void HorizontalClawAndArm() {
-        double hClawOpenValue = 0.377, hClawClosedValue = 0.75;
+        double hClawOpenValue = 0.377, hClawClosedValue = 0.77;
         hArmUpValue = 0.29;
         hArmDownValue = 0.985 ; // .835 and 0.135 before
         hArmMidValue = 0.8;
@@ -506,7 +506,7 @@ public class MainMovement extends LinearOpMode {
                 transferTimer.reset();
                 transferStep = 2;
             } else if(transferStep == 2 && transferTimer.milliseconds() >= 700) {
-                hClawServo.setPosition(0.625);
+                hClawServo.setPosition(0.6);
                 hClawOpen = true;
                 transferTimer.reset();
                 transferStep = 3;
