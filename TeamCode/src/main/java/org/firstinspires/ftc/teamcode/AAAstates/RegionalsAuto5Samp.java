@@ -67,7 +67,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
         }*/
 
         public Action halfCloseClaw() {
-            return new InstantAction(() -> clawServo.setPosition(0.575));
+            return new InstantAction(() -> clawServo.setPosition(0.58));
             //return new halfCloseClaw();
         }
 
@@ -324,12 +324,12 @@ public class RegionalsAuto5Samp extends LinearOpMode {
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-70, -42);
+        Vector2d SS3Vector = new Vector2d(-73, -41);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
         //Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(125));
+        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(120));
 
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         Claw claw = new Claw(hardwareMap);
@@ -372,7 +372,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));*/
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
-                .strafeToSplineHeading(SS3Vector, Math.toRadians(125));
+                .strafeToSplineHeading(SS3Vector, Math.toRadians(120));
         TrajectoryActionBuilder ChamberTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
                 .splineToSplineHeading(new Pose2d(new Vector2d(-24, -5), Math.toRadians(0)), 0)
@@ -528,7 +528,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                 SpikeSample3,
                                 new SequentialAction(
                                         new SleepAction(1.3),
-                                        hSlide.setHLSPos(hsOut + 0.1),
+                                        hSlide.setHLSPos(hsOut),
                                         claw.CloseClaw()
                                 )
                         ),
