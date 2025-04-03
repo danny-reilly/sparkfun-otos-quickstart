@@ -67,7 +67,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         }*/
 
         public Action halfCloseClaw() {
-            return new InstantAction(() -> clawServo.setPosition(0.58));
+            return new InstantAction(() -> clawServo.setPosition(0.59));
             //return new halfCloseClaw();
         }
 
@@ -323,7 +323,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-73, -41);
+        Vector2d SS3Vector = new Vector2d(-75, -39f);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));

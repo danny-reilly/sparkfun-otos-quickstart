@@ -67,7 +67,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
         }*/
 
         public Action halfCloseClaw() {
-            return new InstantAction(() -> clawServo.setPosition(0.58));
+            return new InstantAction(() -> clawServo.setPosition(0.54));
             //return new halfCloseClaw();
         }
 
@@ -324,12 +324,12 @@ public class RegionalsAuto5Samp extends LinearOpMode {
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-73, -41);
+        Vector2d SS3Vector = new Vector2d(-80, -45);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
         //Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(120));
+        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(100));
 
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         Claw claw = new Claw(hardwareMap);
@@ -372,7 +372,8 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));*/
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
-                .strafeToSplineHeading(SS3Vector, Math.toRadians(120));
+                .turnTo(Math.toRadians(110))
+                .strafeToLinearHeading(SS3Vector, Math.toRadians(105));
         TrajectoryActionBuilder ChamberTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
                 .splineToSplineHeading(new Pose2d(new Vector2d(-24, -5), Math.toRadians(0)), 0)
@@ -520,15 +521,14 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                         vSlide.setVSlideSpeed(-0.4),
 
                         //get 3
-                        hArm.hArmDown(),
-                        hSlide.setHLSPos(hsIn-0.05),
-                        claw.halfCloseClaw(),
                         new SleepAction(0.5),
                         new ParallelAction(
                                 SpikeSample3,
                                 new SequentialAction(
-                                        new SleepAction(1.3),
+                                        hArm.hArmDown(),
+                                        claw.halfCloseClaw(),
                                         hSlide.setHLSPos(hsOut),
+                                        new SleepAction(2.5),
                                         claw.CloseClaw()
                                 )
                         ),
