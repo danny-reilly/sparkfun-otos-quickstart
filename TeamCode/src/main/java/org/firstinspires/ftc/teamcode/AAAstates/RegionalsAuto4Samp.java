@@ -32,7 +32,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
     double vArmDumpPos = 0;
     double vArmDownPos = 0.76;
     double hArmUp = 0.7175;
-    double hArmDown = 0.0225;
+    double hArmDown = 0.018;
     double sweepOutPos = 0;
     double sweepInPos = 0;
 
@@ -305,6 +305,11 @@ public class RegionalsAuto4Samp extends LinearOpMode {
             return new InstantAction(() -> hArmServo.setPosition(hArmDown));
             //return new hArmUp();
         }
+
+        public Action hArmDown1() {
+            return new InstantAction(() -> hArmServo.setPosition(hArmDown - 0.05));
+            //return new hArmUp();
+        }
     }
 
     @Override
@@ -319,16 +324,18 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         Vector2d bucketVector3 = new Vector2d(-52, -58);
         Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
         Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
-        Vector2d SS1Vector = new Vector2d(-38, -41);
+        Vector2d SS1Vector = new Vector2d(-36, -40);
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-75, -39f);
+        Vector2d SS3Vector = new Vector2d(-55, -14);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
         //Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(120));
+        Pose2d SS3Pose0 = new Pose2d(SS3Vector, Math.toRadians(120));
+        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
+
 
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         Claw claw = new Claw(hardwareMap);
@@ -369,7 +376,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));*/
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
-                .strafeToSplineHeading(SS3Vector, Math.toRadians(120));
+                .strafeToSplineHeading(SS3Vector, Math.toRadians(180));
         TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
                 .splineToSplineHeading(new Pose2d(new Vector2d(-26, 10), Math.toRadians(180)), 0)
@@ -430,7 +437,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         vArm.VArmDown(),
 
                         //get 1
-                        hArm.hArmDown(),
+                        hArm.hArmDown1(),
                         claw.OpenClaw(),
                         new SleepAction(0.9),
                         hSlide.setHLSPos(hsIn),
@@ -438,6 +445,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         new ParallelAction(
                                 SpikeSample1,
                                 new SequentialAction(
+                                        hArm.hArmDown1(),
                                         new SleepAction(1),
                                         vSlide.setVSlideSpeed(-0.7),
                                         hSlide.setHLSPos(hsOut + 0.075),
@@ -449,7 +457,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         hArm.hArmUp(),
                         hSlide.setHLSPos(hsOut),
                         new SleepAction(0.8),
-                        hSlide.setHLSPos(hsIn),
+                        hSlide.setHLSPos(hsIn - 0.025),
                         new SleepAction(0.4),
                         claw.halfCloseClaw(),
                         new SleepAction(0.1),
@@ -487,7 +495,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         hArm.hArmUp(),
                         hSlide.setHLSPos(hsOut),
                         new SleepAction(0.8),
-                        hSlide.setHLSPos(hsIn),
+                        hSlide.setHLSPos(hsIn-0.025),
                         new SleepAction(0.6),
                         claw.halfCloseClaw(),
                         new SleepAction(0.2),
@@ -512,17 +520,16 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         //get 3
                         hArm.hArmDown(),
                         hSlide.setHLSPos(hsIn-0.05),
-                        claw.halfCloseClaw(),
+                        claw.OpenClaw(),
                         new SleepAction(0.5),
                         new ParallelAction(
                                 SpikeSample3,
                                 new SequentialAction(
-                                        new SleepAction(1.3),
-                                        hSlide.setHLSPos(hsOut),
+                                        new SleepAction(1.6),
+                                        hSlide.setHLSPos(hsOut + 0.1),
                                         claw.CloseClaw()
                                 )
                         ),
-                        new SleepAction(0.2),
                         //get 3
                             /*hArm.hArmDown(),
                             new SleepAction(1),
@@ -545,11 +552,11 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         //dump 3
                         new ParallelAction(
                                 new SequentialAction(
-                                        new SleepAction(0.25),
+                                        new SleepAction(1),
                                         hArm.hArmUp(),
-                                        hSlide.setHLSPos(hsOut),
+                                        hSlide.setHLSPos((hsOut + hsIn)/2),
                                         new SleepAction(0.8),
-                                        hSlide.setHLSPos(hsIn),
+                                        hSlide.setHLSPos(hsIn-0.025),
                                         new SleepAction(0.6),
                                         claw.halfCloseClaw(),
                                         new SleepAction(0.1),
