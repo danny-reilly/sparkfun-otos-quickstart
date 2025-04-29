@@ -48,6 +48,7 @@ public class DemoMovement extends LinearOpMode {
     public float LjoystickX, LjoystickY, RjoystickX, RjoystickY;
     final float joystickDeadzone = 0.1f; // Area where joystick will not detect input
 
+    double strafeSpeed
     double hsMinExtensionR, hsMaxExtensionR;
     double hArmUpValue, hArmDownValue, hArmMidValue;
 
@@ -61,7 +62,7 @@ public class DemoMovement extends LinearOpMode {
     private ElapsedTime vArmTimer = new ElapsedTime();
     private ElapsedTime transferTimer = new ElapsedTime();
     private ElapsedTime sweeperTimer = new ElapsedTime();
-    private  ElapsedTime hangTimer1 = new ElapsedTime();
+    //private  ElapsedTime hangTimer1 = new ElapsedTime();
 
 
     //private ElapsedTime transferCD = new ElapsedTime(); //cooldown 4 transfer
