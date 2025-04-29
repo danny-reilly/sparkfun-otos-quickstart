@@ -305,6 +305,12 @@ public class RegionalsAuto5Samp extends LinearOpMode {
             return new InstantAction(() -> hArmServo.setPosition(hArmDown));
             //return new hArmUp();
         }
+
+
+        public Action hArmDown1() {
+            return new InstantAction(() -> hArmServo.setPosition(hArmDown - 0.05));
+            //return new hArmUp();
+        }
     }
 
     @Override
@@ -314,22 +320,22 @@ public class RegionalsAuto5Samp extends LinearOpMode {
         Pose2d bucketPose0 = new Pose2d(bucketVector0, Math.toRadians(45));
         Vector2d bucketVector1 = new Vector2d(-64, -49);
         Pose2d bucketPose1 = new Pose2d(bucketVector1, Math.toRadians(45));
-        Vector2d bucketVector2 = new Vector2d(-53, -57);
+        Vector2d bucketVector2 = new Vector2d(-54, -58);
         Pose2d bucketPose2 = new Pose2d(bucketVector2, Math.toRadians(45));
-        Vector2d bucketVector3 = new Vector2d(-52, -58);
+        Vector2d bucketVector3 = new Vector2d(-57, -53);
         Vector2d chamberVector = new Vector2d(-24, -5);
         Pose2d bucketPose3 = new Pose2d(bucketVector3, Math.toRadians(45));
         Pose2d beginPose = new Pose2d(-33, -60, Math.toRadians(0));
         Vector2d SS1Vector = new Vector2d(-38, -41);
-        Vector2d SS2Vector = new Vector2d(-68, -41);
+        Vector2d SS2Vector = new Vector2d(-70, -43);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-80, -45);
+        Vector2d SS3Vector = new Vector2d(-51, -15);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
         //Pose2d SS3aPose = new Pose2d(SS3aVector, Math.toRadians(180));
-        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(100));
+        Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
 
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         Claw claw = new Claw(hardwareMap);
@@ -350,12 +356,11 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                 .setReversed(true)
                 .strafeToSplineHeading(bucketVector2, Math.toRadians(45));
         TrajectoryActionBuilder ToBucketTAB3 = drive.actionBuilder(SS3Pose)
-                .strafeToSplineHeading(SS2Vector, Math.toRadians(90))
                 .setReversed(true)
                 .strafeToSplineHeading(bucketVector3, Math.toRadians(45));
         TrajectoryActionBuilder ToBucketTAB4 = drive.actionBuilder(new Pose2d(chamberVector, Math.toRadians(45)))
                 .setReversed(true)
-                .splineToLinearHeading(new Pose2d(new Vector2d(-50, -65), Math.toRadians(45)), 4);
+                .splineToLinearHeading(new Pose2d(new Vector2d(-42, -67), Math.toRadians(45)), 4);
         TrajectoryActionBuilder SpikeSample1TAB = drive.actionBuilder(bucketPose0)
                 .setReversed(false)
                 .strafeToSplineHeading(SS1Vector, Math.toRadians(90));
@@ -372,8 +377,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                     .strafeToSplineHeading(SS3aVector, Math.toRadians(180));*/
         TrajectoryActionBuilder SpikeSample3TAB = drive.actionBuilder(bucketPose2)
                 .setReversed(false)
-                .turnTo(Math.toRadians(110))
-                .strafeToLinearHeading(SS3Vector, Math.toRadians(105));
+                .strafeToSplineHeading(SS3Vector, Math.toRadians(180));
         TrajectoryActionBuilder ChamberTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
                 .splineToSplineHeading(new Pose2d(new Vector2d(-24, -5), Math.toRadians(0)), 0)
@@ -425,17 +429,9 @@ public class RegionalsAuto5Samp extends LinearOpMode {
 
                         //dump preload
                         vArm.VArmDown(),
-                        vSlide.setVSlideSpeed(0.7),
+                        vSlide.setVSlideSpeed(0.9),
                         new ParallelAction(
-                                new ParallelAction(
-                                        ToBucket0,
-                                        new SequentialAction(
-                                                new SleepAction(0.5),
-                                                hArm.hArmDown(),
-                                                claw.OpenClaw(),
-                                                hSlide.setHLSPos(hsIn)
-                                        )
-                                ),
+                                ToBucket0,
                                 vArm.VArmDump()
                         ),
 
@@ -443,23 +439,29 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                         vArm.VArmDown(),
 
                         //get 1
-
+                        hArm.hArmDown1(),
+                        claw.OpenClaw(),
+                        new SleepAction(0.9),
+                        hSlide.setHLSPos(hsIn),
 
                         new ParallelAction(
                                 SpikeSample1,
                                 new SequentialAction(
+                                        hArm.hArmDown1(),
                                         new SleepAction(1),
-                                        vSlide.setVSlideSpeed(-0.6),
+                                        vSlide.setVSlideSpeed(-0.8),
                                         hSlide.setHLSPos(hsOut + 0.075),
-                                        claw.CloseClaw()
-                                )
+                                        claw.CloseClaw(),
+                                        new SleepAction(0.3),
+                                        hArm.hArmUp(),
+                                        hSlide.setHLSPos(hsOut)
+
+
+                                        )
                         ),
 
-                        //new SleepAction(0.2), TIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVE
-                        hArm.hArmUp(),
-                        hSlide.setHLSPos(hsOut),
-                        new SleepAction(0.8),
-                        hSlide.setHLSPos(hsIn),
+                        new SleepAction(0.4),
+                        hSlide.setHLSPos(hsIn - 0.025),
                         new SleepAction(0.4),
                         claw.halfCloseClaw(),
                         new SleepAction(0.1),
@@ -468,7 +470,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
 
                         //dump 1
 
-                        vSlide.setVSlideSpeed(0.85),
+                        vSlide.setVSlideSpeed(0.9),
 
                         new ParallelAction(
                                 new SequentialAction(
@@ -487,25 +489,25 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                         new ParallelAction(
                                 SpikeSample2,
                                 new SequentialAction(
-                                        vSlide.setVSlideSpeed(-0.65),
-                                        new SleepAction(0.75),
+                                        new SleepAction(0.65),
                                         claw.CloseClaw()
                                 )
                         ),
                         new SleepAction(0.2),
+                        vSlide.setVSlideSpeed(-0.9),
 
                         hArm.hArmUp(),
                         hSlide.setHLSPos(hsOut),
                         new SleepAction(0.8),
-                        hSlide.setHLSPos(hsIn),
-                        new SleepAction(0.4),
+                        hSlide.setHLSPos(hsIn-0.025),
+                        new SleepAction(0.45),
                         claw.halfCloseClaw(),
                         new SleepAction(0.2),
                         hSlide.setHLSPos(hsOut),
                         new SleepAction(0.2),
 
                         //dump 2
-                        vSlide.setVSlideSpeed(0.85),
+                        vSlide.setVSlideSpeed(0.9),
                         new ParallelAction(
                                 new SequentialAction(
                                         new SleepAction(0.9),
@@ -514,25 +516,24 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                 ToBucket2
                         ),
                         vArm.VArmDump(),
-                        //new SleepAction(0.75), TIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVE
-                        new SleepAction(0.5),
+                        new SleepAction(0.75),
                         vArm.VArmDown(),
                         new SleepAction(0.5),
-                        vSlide.setVSlideSpeed(-0.4),
+                        vSlide.setVSlideSpeed(-0.7),
 
                         //get 3
+                        hArm.hArmDown1(),
+                        hSlide.setHLSPos(hsIn-0.05),
+                        claw.OpenClaw(),
                         new SleepAction(0.5),
                         new ParallelAction(
                                 SpikeSample3,
                                 new SequentialAction(
-                                        hArm.hArmDown(),
-                                        claw.halfCloseClaw(),
-                                        hSlide.setHLSPos(hsOut),
-                                        new SleepAction(2.5),
+                                        new SleepAction(1.6),
+                                        hSlide.setHLSPos(hsOut + 0.1),
                                         claw.CloseClaw()
                                 )
                         ),
-                        new SleepAction(0.1),
                         //get 3
                             /*hArm.hArmDown(),
                             new SleepAction(1),
@@ -555,12 +556,12 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                         //dump 3
                         new ParallelAction(
                                 new SequentialAction(
-                                        new SleepAction(0.1),
+                                        new SleepAction(0.5),
                                         hArm.hArmUp(),
-                                        hSlide.setHLSPos(hsOut),
+                                        hSlide.setHLSPos((hsOut + hsIn)/2),
                                         new SleepAction(0.8),
                                         hSlide.setHLSPos(hsIn-0.025),
-                                        new SleepAction(0.4),
+                                        new SleepAction(0.65),
                                         claw.halfCloseClaw(),
                                         new SleepAction(0.1),
                                         hSlide.setHLSPos(hsOut),
@@ -570,6 +571,7 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                 ),
                                 ToBucket3
                         ),
+
                         //new SleepAction(1.5), TIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVETIMESAVE
                         new SleepAction(0.9),
                         vArm.VArmDown(),
@@ -620,10 +622,10 @@ public class RegionalsAuto5Samp extends LinearOpMode {
                                         new SleepAction(0.2),
 
                                         //dump 4
-                                        vSlide.setVSlideSpeed(0.95),
+                                        vSlide.setVSlideSpeed(1),
                                         new SleepAction(0.2),
                                         vArm.VArmDump(),
-                                        new SleepAction(0.7),
+                                        new SleepAction(0.9),
                                         vArm.VArmDown()
 
                                 )

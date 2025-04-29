@@ -328,7 +328,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
         Vector2d SS2Vector = new Vector2d(-68, -41);
         //Vector2d SS3Vector = new Vector2d(-52, -26);
         //Vector2d SS3aVector = new Vector2d(-42, -26);
-        Vector2d SS3Vector = new Vector2d(-55, -14);
+        Vector2d SS3Vector = new Vector2d(-50, -14);
         Pose2d SS1Pose = new Pose2d(SS1Vector, Math.toRadians(90));
         Pose2d SS2Pose = new Pose2d(SS2Vector, Math.toRadians(90));
         //Pose2d SS3Pose = new Pose2d(SS3Vector, Math.toRadians(180));
@@ -379,9 +379,9 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                 .strafeToSplineHeading(SS3Vector, Math.toRadians(180));
         TrajectoryActionBuilder ParkTAB = drive.actionBuilder(bucketPose3)
                 .setReversed(false)
-                .splineToSplineHeading(new Pose2d(new Vector2d(-26, 10), Math.toRadians(180)), 0)
+                .splineToSplineHeading(new Pose2d(new Vector2d(-28, 10), Math.toRadians(180)), 0)
                 .waitSeconds(0.2)
-                .strafeTo(new Vector2d(-24, 10));
+                .strafeTo(new Vector2d(-22, 10));
 
 
         SequentialAction Transfer = new SequentialAction(
@@ -485,7 +485,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                         new ParallelAction(
                                 SpikeSample2,
                                 new SequentialAction(
-                                        new SleepAction(0.75),
+                                        new SleepAction(0.6),
                                         claw.CloseClaw()
                                 )
                         ),
@@ -557,7 +557,7 @@ public class RegionalsAuto4Samp extends LinearOpMode {
                                         hSlide.setHLSPos((hsOut + hsIn)/2),
                                         new SleepAction(0.8),
                                         hSlide.setHLSPos(hsIn-0.025),
-                                        new SleepAction(0.6),
+                                        new SleepAction(0.8),
                                         claw.halfCloseClaw(),
                                         new SleepAction(0.1),
                                         hSlide.setHLSPos(hsOut),
