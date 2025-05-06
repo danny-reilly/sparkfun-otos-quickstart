@@ -40,7 +40,7 @@ public class DemoMovement extends LinearOpMode {
     float netS; // speed the motor actually uses
     double StrafeBL = 0f, StrafeBR = 0f, StrafeFL = 0f, StrafeFR = 0f;
     double RotateBL = 0f, RotateBR = 0f, RotateFL = 0f, RotateFR = 0f;
-    boolean Strafing, Rotating;
+    boolean Strafing, Rotating, LeftorRight;
 
     float rotationSpeed = 1f; // Robot rotation speed multiplier, 1.5 for fast mode, 0.5 for slow mode
 
@@ -48,7 +48,7 @@ public class DemoMovement extends LinearOpMode {
     public float LjoystickX, LjoystickY, RjoystickX, RjoystickY;
     final float joystickDeadzone = 0.1f; // Area where joystick will not detect input
 
-    double strafeSpeed
+    //double strafeSpeed
     double hsMinExtensionR, hsMaxExtensionR;
     double hArmUpValue, hArmDownValue, hArmMidValue;
 
@@ -245,7 +245,7 @@ public class DemoMovement extends LinearOpMode {
 
         //} else { // default- no bumpers are held !
         netS = Math.min(maxSpeed, (float) (addSpeed - joystickDeadzone) / (1.0f - joystickDeadzone)); // Speed is set to default speed
-        rotationSpeed = 1f;
+        rotationSpeed = 0.9f;
         speedFast = 1f;
         //}
 
@@ -259,41 +259,49 @@ public class DemoMovement extends LinearOpMode {
             //if stick is past the dead zone ->
             if (LangleInDegrees >= -22.5 && LangleInDegrees <= 22.5) {
                 // right quadrant
+                LeftorRight = true;
                 wheelStrafe(-netS, netS, netS, -netS);
                 telemetry.addData("Left Stick quadrant: ", "RIGHT");
 
             } else if (LangleInDegrees > 22.5 && LangleInDegrees < 67.5) {
                 // top-right quadrant
+                LeftorRight = false;
                 wheelStrafe(0, netS, netS, 0);
                 telemetry.addData("Left Stick quadrant: ", "TOP RIGHT");
 
             } else if (LangleInDegrees > -67.5 && LangleInDegrees < -22.5) {
                 // bottom-right quadrant
+                LeftorRight = false;
                 wheelStrafe(-netS, 0, 0, -netS);
                 telemetry.addData("Left Stick quadrant: ", "BOTTOM RIGHT");
 
             } else if (LangleInDegrees >= 67.5 && LangleInDegrees <= 112.5) {
                 // top quadrant
+                LeftorRight = false;
                 wheelStrafe(netS, netS, netS, netS);
                 telemetry.addData("Left Stick quadrant: ", "TOP");
 
             } else if (LangleInDegrees > -112.5 && LangleInDegrees < -67.5) {
                 // bottom quadrant
+                LeftorRight = false;
                 wheelStrafe(-netS, -netS, -netS, -netS);
                 telemetry.addData("Left Stick quadrant: ", "BOTTOM");
 
             } else if (LangleInDegrees > 112.5 && LangleInDegrees < 157.5) {
                 // top-left quadrant
+                LeftorRight = false;
                 wheelStrafe(netS, 0, 0, netS);
                 telemetry.addData("Left Stick quadrant: ", "TOP LEFT");
 
             } else if (LangleInDegrees > -157.5 && LangleInDegrees < -112.5) {
                 // bottom-left quadrant
+                LeftorRight = false;
                 wheelStrafe(0, -netS, -netS, 0);
                 telemetry.addData("Left Stick quadrant: ", "BOTTOM LEFT");
 
             } else if (LangleInDegrees >= 157.5 || LangleInDegrees <= -157.5) {
                 // left quadrant
+                LeftorRight = true;
                 wheelStrafe(netS, -netS, -netS, netS);
                 telemetry.addData("Left Stick quadrant: ", "LEFT");
 
@@ -301,6 +309,7 @@ public class DemoMovement extends LinearOpMode {
 
         } else {
             Strafing = false;
+            LeftorRight = false;
 
             wheelStrafe(0, 0, 0, 0);
             telemetry.addData("not driving", null);
@@ -499,6 +508,7 @@ public class DemoMovement extends LinearOpMode {
             hangMotorsOn = !hangMotorsOn;
             hangTimer1.reset();
         }
+        // anti passoid on golly
 
         if (hangMotorsOn){
 
@@ -560,15 +570,24 @@ public class DemoMovement extends LinearOpMode {
     //I know very well how this whole motor power setting is very long and inefficient but it used to be different and I don't feel like fixing it
     private void setMotorPowers() {
 
-        if (Strafing || Rotating) {
-            leftBack.setPower(((RotateBL + StrafeBL)) * rotationSpeed * 0.5);
+        if ((Strafing && LeftorRight) && !Rotating) {
+            leftBack.setPower(((RotateBL + StrafeBL)) * rotationSpeed * 0.425);
 
-            rightFront.setPower(((RotateFR + StrafeFR)) * rotationSpeed * 0.5);
+            rightFront.setPower(((RotateFR + StrafeFR)) * rotationSpeed * 0.425);
 
-            leftFront.setPower(((RotateFL + StrafeFL)) * rotationSpeed * 0.5);
+            leftFront.setPower(((RotateFL + StrafeFL)) * rotationSpeed * 0.425);
 
-            rightBack.setPower(((RotateBR + StrafeBR)) * rotationSpeed * 0.5);
+            rightBack.setPower(((RotateBR + StrafeBR)) * rotationSpeed * 0.425);
             // hello :3
+        } else if ((Strafing && !LeftorRight) || Rotating) {
+            leftBack.setPower(((RotateBL + StrafeBL)) * rotationSpeed * 0.35);
+
+            rightFront.setPower(((RotateFR + StrafeFR)) * rotationSpeed * 0.35);
+
+            leftFront.setPower(((RotateFL + StrafeFL)) * rotationSpeed * 0.35);
+
+            rightBack.setPower(((RotateBR + StrafeBR)) * rotationSpeed * 0.35);
+
         } else {
             leftBack.setPower(0);
 
