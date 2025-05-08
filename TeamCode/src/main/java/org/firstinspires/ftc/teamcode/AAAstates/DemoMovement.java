@@ -201,17 +201,10 @@ public class DemoMovement extends LinearOpMode {
 
     private void epicRotationMovement() {
         // rotates the robot if left stick is not being used (movement takes priorities)
-        if (Math.abs(RjoystickX) > joystickDeadzone / 2) {
             Rotating = true;
-            if(RjoystickX > 0) {
                 // clockwise rotation
-                wheelRotate(Math.abs(RjoystickX), -Math.abs(RjoystickX), Math.abs(RjoystickX), -Math.abs(RjoystickX));
-                telemetry.addData("Right Stick rotating LEFT: ", RjoystickX);
 
-            } else if (RjoystickX < 0) {
                 // counter-clockwise rotation
-                wheelRotate(-Math.abs(RjoystickX), Math.abs(RjoystickX), -Math.abs(RjoystickX), Math.abs(RjoystickX));
-                telemetry.addData("Right Stick rotating RIGHT: ", RjoystickX);
 
             }
         } else {
@@ -244,7 +237,7 @@ public class DemoMovement extends LinearOpMode {
         //    rotationSpeed = speedFast;
 
         //} else { // default- no bumpers are held !
-        netS = Math.min(maxSpeed, (float) (addSpeed - joystickDeadzone) / (1.0f - joystickDeadzone)); // Speed is set to default speed
+        netS = 1.2f*Math.min(maxSpeed, (float) (addSpeed - joystickDeadzone) / (1.0f - joystickDeadzone)); // Speed is set to default speed
         rotationSpeed = 0.9f;
         speedFast = 1f;
         //}
@@ -266,13 +259,13 @@ public class DemoMovement extends LinearOpMode {
             } else if (LangleInDegrees > 22.5 && LangleInDegrees < 67.5) {
                 // top-right quadrant
                 LeftorRight = false;
-                wheelStrafe(0, netS, netS, 0);
+                wheelStrafe(0, 1.2f*netS, 1.2f*netS, 0);
                 telemetry.addData("Left Stick quadrant: ", "TOP RIGHT");
 
             } else if (LangleInDegrees > -67.5 && LangleInDegrees < -22.5) {
                 // bottom-right quadrant
                 LeftorRight = false;
-                wheelStrafe(-netS, 0, 0, -netS);
+                wheelStrafe(-1.2f*netS, 0, 0, -1.2f*netS);
                 telemetry.addData("Left Stick quadrant: ", "BOTTOM RIGHT");
 
             } else if (LangleInDegrees >= 67.5 && LangleInDegrees <= 112.5) {
@@ -290,13 +283,13 @@ public class DemoMovement extends LinearOpMode {
             } else if (LangleInDegrees > 112.5 && LangleInDegrees < 157.5) {
                 // top-left quadrant
                 LeftorRight = false;
-                wheelStrafe(netS, 0, 0, netS);
+                wheelStrafe(1.2f*netS, 0, 0,1.2f* netS);
                 telemetry.addData("Left Stick quadrant: ", "TOP LEFT");
 
             } else if (LangleInDegrees > -157.5 && LangleInDegrees < -112.5) {
                 // bottom-left quadrant
                 LeftorRight = false;
-                wheelStrafe(0, -netS, -netS, 0);
+                wheelStrafe(0, -1.2f*netS, -1.2f*netS, 0);
                 telemetry.addData("Left Stick quadrant: ", "BOTTOM LEFT");
 
             } else if (LangleInDegrees >= 157.5 || LangleInDegrees <= -157.5) {
