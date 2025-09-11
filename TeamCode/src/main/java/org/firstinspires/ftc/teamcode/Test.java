@@ -36,8 +36,10 @@ public class Test  extends LinearOpMode{
             green = (angle-180) / 45 + 1;
         } else if(angle >= 180  && angle < 270) {
             blue = (angle - 270) / 45 + 1;
+            green = -1;
         } else if(angle >= 270  && angle < 360) {
-
+            blue = -1;
+            green = (360 - angle) / 45 - 1;
         }
     }
 }
