@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp (name = "testTeleOp")
+@TeleOp (name = "bestTeleOp")
 public class Test  extends LinearOpMode{
 
     public DcMotor frontLeft, frontRight, backLeft, backRight;
@@ -30,15 +30,20 @@ public class Test  extends LinearOpMode{
         double x = gamepad1.left_stick_x;
         double y = gamepad1.left_stick_y;
 
+        // how far the joystick is pushed
         double power = Math.hypot(x, y);
+
         double turn = gamepad1.right_stick_x;
 
         // Naming this way based on GoBuilda mecanum wheel direction diagram
         double blue; // Motors front right and back left
         double green; // motors front left and back right
 
+        // gets the angle the joystick is reletive to its resting position
+        // and converts from radians to degrees
         double angle = Math.atan2(-y, x) * (180/Math.PI);
 
+        //bunch of math that could be shortened with trig but lets you move in any direction p much
         if(angle >= 0  && angle < 90) {
             blue = angle/45 - 1;
             green = 1;
@@ -55,8 +60,11 @@ public class Test  extends LinearOpMode{
             green = 0;
             blue = 0;
         }
+        // multiplies direction by how far the joystick is pushed
         green *= power;
         blue *= power;
+
+        // normalizes the turn and strafe using a chatgpt'd equation
         frontLeft.setPower(Math.max(-1,Math.min(1,(green+turn)/2)));
         backRight.setPower(Math.max(-1,Math.min(1,(green-turn)/2)));
 
