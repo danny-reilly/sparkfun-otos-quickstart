@@ -14,7 +14,10 @@ public class Test  extends LinearOpMode{
         frontRight = hardwareMap.get(DcMotor.class, "front_right");
         backLeft = hardwareMap.get(DcMotor.class, "back_left");
         backRight = hardwareMap.get(DcMotor.class, "back_right");
-
+        
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        
         while(opModeIsActive()) {
             chassisMovement();
             telemetry.addData("Front Left", frontLeft.getPower());
